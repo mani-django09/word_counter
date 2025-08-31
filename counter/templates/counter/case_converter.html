@@ -1,0 +1,442 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Compact Hero Section -->
+<section class="hero-section">
+    <div class="container mx-auto px-4 py-6">
+        <div class="hero-content text-center max-w-3xl mx-auto">
+            <h1 class="hero-title">
+                Case Converter
+            </h1>
+            <p class="hero-subtitle">
+                Convert text to UPPERCASE, lowercase, Title Case, Sentence case, and more instantly.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Main Tool Section -->
+<section class="main-tool-section">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Input Card -->
+            <div class="tool-card mb-4">
+                <div class="textarea-section">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Enter text to convert
+                    </label>
+                    <div class="textarea-container">
+                        <textarea 
+                            id="case-input"
+                            placeholder="Type or paste your text here to convert case..."
+                            class="main-textarea w-full border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-700 dark:text-white transition-all duration-300 resize-vertical"
+                        ></textarea>
+                        <div class="textarea-overlay">
+                            <button id="clear-case-input" class="clear-btn transition-all duration-200">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Conversion Buttons -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+                    <button id="upper-case-btn" class="action-btn bg-red-600 hover:bg-red-700 text-white">
+                        <span>UPPERCASE</span>
+                    </button>
+                    <button id="lower-case-btn" class="action-btn bg-blue-600 hover:bg-blue-700 text-white">
+                        <span>lowercase</span>
+                    </button>
+                    <button id="title-case-btn" class="action-btn bg-green-600 hover:bg-green-700 text-white">
+                        <span>Title Case</span>
+                    </button>
+                    <button id="sentence-case-btn" class="action-btn bg-purple-600 hover:bg-purple-700 text-white">
+                        <span>Sentence case</span>
+                    </button>
+                </div>
+
+                <!-- Additional Case Options -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+                    <button id="camel-case-btn" class="action-btn bg-orange-600 hover:bg-orange-700 text-white">
+                        <span>camelCase</span>
+                    </button>
+                    <button id="pascal-case-btn" class="action-btn bg-indigo-600 hover:bg-indigo-700 text-white">
+                        <span>PascalCase</span>
+                    </button>
+                    <button id="kebab-case-btn" class="action-btn bg-teal-600 hover:bg-teal-700 text-white">
+                        <span>kebab-case</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Output Card -->
+            <div class="tool-card">
+                <div class="textarea-section">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Converted text
+                    </label>
+                    <div class="textarea-container">
+                        <textarea 
+                            id="case-output"
+                            placeholder="Converted text will appear here..."
+                            class="main-textarea w-full border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-700 dark:text-white transition-all duration-300 resize-vertical"
+                            readonly
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="copy-case-output" class="action-btn bg-blue-600 hover:bg-blue-700 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Copy Result</span>
+                    </button>
+                    <button id="download-case-txt" class="action-btn bg-green-600 hover:bg-green-700 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span>Download TXT</span>
+                    </button>
+                    <button id="swap-case-text" class="action-btn bg-gray-600 hover:bg-gray-700 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                        </svg>
+                        <span>Swap Input/Output</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Case Types Reference -->
+<section class="py-8">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Case Conversion Types</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="case-example p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                            <h3 class="font-semibold text-red-800 dark:text-red-300 mb-2">UPPERCASE</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Converts all letters to capital letters.</p>
+                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">HELLO WORLD</code>
+                        </div>
+                        
+                        <div class="case-example p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <h3 class="font-semibold text-blue-800 dark:text-blue-300 mb-2">lowercase</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Converts all letters to small letters.</p>
+                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">hello world</code>
+                        </div>
+                        
+                        <div class="case-example p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                            <h3 class="font-semibold text-green-800 dark:text-green-300 mb-2">Title Case</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Capitalizes the first letter of each word.</p>
+                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">Hello World</code>
+                        </div>
+                        
+                        <div class="case-example p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                            <h3 class="font-semibold text-purple-800 dark:text-purple-300 mb-2">Sentence case</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Capitalizes only the first letter of sentences.</p>
+                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">Hello world. This is a sentence.</code>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="case-example p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                            <h3 class="font-semibold text-orange-800 dark:text-orange-300 mb-2">camelCase</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">First word lowercase, subsequent words capitalized, no spaces.</p>
+                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">helloWorld</code>
+                        </div>
+                        
+                        <div class="case-example p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
+                            <h3 class="font-semibold text-indigo-800 dark:text-indigo-300 mb-2">PascalCase</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">All words capitalized, no spaces. Used in programming.</p>
+                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">HelloWorld</code>
+                        </div>
+                        
+                        <div class="case-example p-4 bg-teal-50 dark:bg-teal-900/20 rounded-lg">
+                            <h3 class="font-semibold text-teal-800 dark:text-teal-300 mb-2">kebab-case</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">All lowercase with hyphens instead of spaces.</p>
+                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">hello-world</code>
+                        </div>
+                        
+                        <div class="case-example p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 dark:text-gray-300 mb-2">snake_case</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">All lowercase with underscores instead of spaces.</p>
+                            <code class="text-xs bg-white dark:bg-gray-600 px-2 py-1 rounded">hello_world</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Use Cases Section -->
+<section class="py-12 bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">When to Use Different Cases</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-blue-600 dark:text-blue-400">Programming</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li><strong>camelCase:</strong> JavaScript variables, functions</li>
+                        <li><strong>PascalCase:</strong> Class names, components</li>
+                        <li><strong>snake_case:</strong> Python variables, database fields</li>
+                        <li><strong>kebab-case:</strong> CSS classes, URLs</li>
+                        <li><strong>UPPERCASE:</strong> Constants, environment variables</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Writing & Content</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li><strong>Title Case:</strong> Headlines, book titles</li>
+                        <li><strong>Sentence case:</strong> Regular paragraphs, descriptions</li>
+                        <li><strong>UPPERCASE:</strong> Emphasis, warnings, acronyms</li>
+                        <li><strong>lowercase:</strong> Informal writing, poetry</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-purple-600 dark:text-purple-400">Design & UI</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li><strong>UPPERCASE:</strong> Buttons, navigation, labels</li>
+                        <li><strong>Title Case:</strong> Menu items, form labels</li>
+                        <li><strong>Sentence case:</strong> Body text, descriptions</li>
+                        <li><strong>lowercase:</strong> Modern minimalist design</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-orange-600 dark:text-orange-400">SEO & URLs</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li><strong>kebab-case:</strong> URL slugs, file names</li>
+                        <li><strong>lowercase:</strong> Domain names, email addresses</li>
+                        <li><strong>Title Case:</strong> Page titles, meta descriptions</li>
+                        <li><strong>Sentence case:</strong> Blog post titles</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Social Media</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li><strong>Title Case:</strong> Professional posts</li>
+                        <li><strong>Sentence case:</strong> Casual posts, stories</li>
+                        <li><strong>UPPERCASE:</strong> Emphasis, calls-to-action</li>
+                        <li><strong>lowercase:</strong> Aesthetic posts, poetry</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-teal-600 dark:text-teal-400">Data Processing</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li><strong>lowercase:</strong> Data normalization</li>
+                        <li><strong>UPPERCASE:</strong> Data standardization</li>
+                        <li><strong>Title Case:</strong> Names, addresses</li>
+                        <li><strong>snake_case:</strong> Database operations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputText = document.getElementById('case-input');
+    const outputText = document.getElementById('case-output');
+    const toast = new window.ToastManager();
+
+    // Case conversion functions
+    function toUpperCase(text) {
+        return text.toUpperCase();
+    }
+
+    function toLowerCase(text) {
+        return text.toLowerCase();
+    }
+
+    function toTitleCase(text) {
+        return text.replace(/\w\S*/g, (txt) => {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+    }
+
+    function toSentenceCase(text) {
+        return text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => {
+            return c.toUpperCase();
+        });
+    }
+
+    function toCamelCase(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+    }
+
+    function toPascalCase(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase())
+            .replace(/^(.)/, (match, chr) => chr.toUpperCase());
+    }
+
+    function toKebabCase(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function toSnakeCase(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9]+/g, '_')
+            .replace(/^_+|_+$/g, '');
+    }
+
+    // Button event listeners
+    document.getElementById('upper-case-btn').addEventListener('click', () => {
+        outputText.value = toUpperCase(inputText.value);
+        toast.show('Converted to UPPERCASE', 'success');
+    });
+
+    document.getElementById('lower-case-btn').addEventListener('click', () => {
+        outputText.value = toLowerCase(inputText.value);
+        toast.show('Converted to lowercase', 'success');
+    });
+
+    document.getElementById('title-case-btn').addEventListener('click', () => {
+        outputText.value = toTitleCase(inputText.value);
+        toast.show('Converted to Title Case', 'success');
+    });
+
+    document.getElementById('sentence-case-btn').addEventListener('click', () => {
+        outputText.value = toSentenceCase(inputText.value);
+        toast.show('Converted to Sentence case', 'success');
+    });
+
+    document.getElementById('camel-case-btn').addEventListener('click', () => {
+        outputText.value = toCamelCase(inputText.value);
+        toast.show('Converted to camelCase', 'success');
+    });
+
+    document.getElementById('pascal-case-btn').addEventListener('click', () => {
+        outputText.value = toPascalCase(inputText.value);
+        toast.show('Converted to PascalCase', 'success');
+    });
+
+    document.getElementById('kebab-case-btn').addEventListener('click', () => {
+        outputText.value = toKebabCase(inputText.value);
+        toast.show('Converted to kebab-case', 'success');
+    });
+
+    // Utility buttons
+    document.getElementById('copy-case-output').addEventListener('click', async () => {
+        const text = outputText.value;
+        if (!text) {
+            toast.show('No converted text to copy.', 'warning');
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(text);
+            toast.show('Converted text copied!', 'success');
+        } catch (error) {
+            toast.show('Failed to copy text.', 'error');
+        }
+    });
+
+    document.getElementById('download-case-txt').addEventListener('click', () => {
+        const text = outputText.value;
+        if (!text) {
+            toast.show('No converted text to download.', 'warning');
+            return;
+        }
+
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `case-converted-${new Date().toISOString().slice(0, 10)}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        toast.show('Converted text downloaded!', 'success');
+    });
+
+    document.getElementById('swap-case-text').addEventListener('click', () => {
+        const inputValue = inputText.value;
+        const outputValue = outputText.value;
+        
+        inputText.value = outputValue;
+        outputText.value = inputValue;
+        
+        toast.show('Input and output swapped!', 'info');
+    });
+
+    document.getElementById('clear-case-input').addEventListener('click', () => {
+        inputText.value = '';
+        outputText.value = '';
+        toast.show('Text cleared.', 'info');
+    });
+
+    // Auto-resize textareas
+    [inputText, outputText].forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 300) + 'px';
+        });
+    });
+
+    // Add snake_case button functionality (missing from HTML but referenced in content)
+    const additionalCaseButtons = document.createElement('div');
+    additionalCaseButtons.className = 'grid grid-cols-1 md:grid-cols-2 gap-3 mt-3';
+    additionalCaseButtons.innerHTML = `
+        <button id="snake-case-btn" class="action-btn bg-gray-600 hover:bg-gray-700 text-white">
+            <span>snake_case</span>
+        </button>
+        <button id="toggle-case-btn" class="action-btn bg-pink-600 hover:bg-pink-700 text-white">
+            <span>tOGGLE cASE</span>
+        </button>
+    `;
+    
+    // Insert after the existing button grid
+    const existingButtonGrid = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3');
+    if (existingButtonGrid) {
+        existingButtonGrid.parentNode.insertBefore(additionalCaseButtons, existingButtonGrid.nextSibling);
+        
+        // Add event listeners for new buttons
+        document.getElementById('snake-case-btn').addEventListener('click', () => {
+            outputText.value = toSnakeCase(inputText.value);
+            toast.show('Converted to snake_case', 'success');
+        });
+        
+        document.getElementById('toggle-case-btn').addEventListener('click', () => {
+            outputText.value = inputText.value.split('').map(char => 
+                char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+            ).join('');
+            toast.show('Case toggled', 'success');
+        });
+    }
+});
+</script>
+{% endblock %}

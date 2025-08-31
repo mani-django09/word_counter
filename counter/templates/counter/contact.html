@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Compact Hero Section -->
+<section class="hero-section">
+    <div class="container mx-auto px-4 py-6">
+        <div class="hero-content text-center max-w-3xl mx-auto">
+            <h1 class="hero-title">
+                Contact Us
+            </h1>
+            <p class="hero-subtitle">
+                Get in touch with the Word Counter Pro team. We're here to help with questions, feedback, and support.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Content -->
+<section class="main-tool-section">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Information -->
+                <div class="tool-card">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Get in Touch</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="contact-method">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Email Support</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">
+                                        For general inquiries, bug reports, and feature requests.
+                                    </p>
+                                    <a href="mailto:support@wordcounter3.com" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        support@wordcounter3.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0">
+                                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Feature Requests</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">
+                                        Have an idea for a new feature? We'd love to hear it.
+                                    </p>
+                                    <a href="mailto:features@wordcounter3.com" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        features@wordcounter3.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0">
+                                    <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.99-.833-2.76 0L3.154 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Bug Reports</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">
+                                        Found a bug? Help us fix it by reporting the issue.
+                                    </p>
+                                    <a href="mailto:bugs@wordcounter3.com" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        bugs@wordcounter3.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0">
+                                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white">Business Inquiries</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">
+                                        Partnerships, integrations, and business opportunities.
+                                    </p>
+                                    <a href="mailto:business@wordcounter3.com" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                        business@wordcounter3.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ and Support -->
+                <div class="tool-card">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Frequently Asked Questions</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="faq-item border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">How do I report a bug?</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    Email us at bugs@wordcounter3.com with details about the issue, including your browser type, operating system, and steps to reproduce the problem.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Is Word Counter Pro really free?</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    Yes, all features are completely free with no hidden costs, subscriptions, or premium tiers. We believe everyone should have access to quality writing tools.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Do you store my text?</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    No, we never store your text. All processing happens locally in your browser, ensuring complete privacy and security of your content.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Can I use this for commercial projects?</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    Absolutely! Word Counter Pro is free for both personal and commercial use. No attribution required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                        <h3 class="font-semibold text-blue-800 dark:text-blue-300 mb-2">Response Time</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            We typically respond to all inquiries within 24-48 hours. For urgent issues, please mention "URGENT" in your subject line.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Resources -->
+            <div class="tool-card mt-8">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Other Ways to Connect</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Documentation</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            Check our comprehensive help guides and tutorials for detailed information about using our tools.
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Status Page</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            Monitor our service status and get updates about maintenance or issues affecting our tools.
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+<div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Community</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            Connect with other writers and content creators who use Word Counter Pro for their projects.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

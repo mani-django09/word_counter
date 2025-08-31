@@ -1,0 +1,428 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Compact Hero Section -->
+<section class="hero-section">
+    <div class="container mx-auto px-4 py-6">
+        <div class="hero-content text-center max-w-3xl mx-auto">
+            <h1 class="hero-title">
+                Reading Time Calculator
+            </h1>
+            <p class="hero-subtitle">
+                Calculate accurate reading and speaking times for articles, presentations, and content planning.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Main Tool Section -->
+<section class="main-tool-section">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Main Tool Card -->
+            <div class="tool-card">
+                <!-- Textarea Section -->
+                <div class="textarea-section">
+                    <div class="textarea-container">
+                        <textarea 
+                            id="reading-text-input"
+                            placeholder="Paste your article, speech, or content here to calculate reading time..."
+                            class="main-textarea w-full border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-700 dark:text-white transition-all duration-300 resize-vertical"
+                        ></textarea>
+                        <div class="textarea-overlay">
+                            <button id="clear-reading-text" class="clear-btn transition-all duration-200">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number text-blue-600 dark:text-blue-400" id="rt-word-count">0</span>
+                        <div class="stat-label">Words</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number text-green-600 dark:text-green-400" id="rt-char-count">0</span>
+                        <div class="stat-label">Characters</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number text-purple-600 dark:text-purple-400" id="rt-sentence-count">0</span>
+                        <div class="stat-label">Sentences</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number text-orange-600 dark:text-orange-400" id="rt-paragraph-count">0</span>
+                        <div class="stat-label">Paragraphs</div>
+                    </div>
+                </div>
+
+                <!-- Reading/Speaking Time Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="stat-card bg-blue-50 dark:bg-blue-900/20">
+                        <h3 class="text-base font-semibold text-blue-900 dark:text-blue-200 mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            Reading Time
+                        </h3>
+                        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2" id="reading-minutes">0 min</div>
+                        <div class="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                            Based on <span id="reading-wpm">225</span> words per minute
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                Adjust reading speed (WPM)
+                            </label>
+                            <input type="range" id="reading-speed" min="150" max="350" value="225" 
+                                   class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card bg-green-50 dark:bg-green-900/20">
+                        <h3 class="text-base font-semibold text-green-900 dark:text-green-200 mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                            </svg>
+                            Speaking Time
+                        </h3>
+                        <div class="text-2xl font-bold text-green-600 dark:text-green-400 mb-2" id="speaking-minutes">0 min</div>
+                        <div class="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                            Based on <span id="speaking-wpm">155</span> words per minute
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                Adjust speaking speed (WPM)
+                            </label>
+                            <input type="range" id="speaking-speed" min="120" max="200" value="155" 
+                                   class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="copy-reading-text" class="action-btn bg-blue-600 hover:bg-blue-700 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Copy Text</span>
+                    </button>
+                    <button id="download-reading-report" class="action-btn bg-green-600 hover:bg-green-700 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        <span>Download Report</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Content Guidelines Section -->
+<section class="py-8">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Content Length Guidelines</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="content-guideline p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <h3 class="font-semibold text-blue-800 dark:text-blue-300 mb-3">Blog Posts</h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Quick read:</span>
+                                    <span class="font-medium">300-600 words (1-3 min)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Medium post:</span>
+                                    <span class="font-medium">1,000-1,500 words (4-7 min)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">In-depth article:</span>
+                                    <span class="font-medium">2,000+ words (9+ min)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Optimal length:</span>
+                                    <span class="font-medium">1,600 words (7 min)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="content-guideline p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                            <h3 class="font-semibold text-green-800 dark:text-green-300 mb-3">Presentations</h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Elevator pitch:</span>
+                                    <span class="font-medium">75-100 words (30 sec)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">5-minute talk:</span>
+                                    <span class="font-medium">650-750 words</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">10-minute talk:</span>
+                                    <span class="font-medium">1,300-1,500 words</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">20-minute talk:</span>
+                                    <span class="font-medium">2,600-3,000 words</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="content-guideline p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                            <h3 class="font-semibold text-purple-800 dark:text-purple-300 mb-3">Social Media</h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Twitter thread:</span>
+                                    <span class="font-medium">50-100 words (30 sec)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">LinkedIn post:</span>
+                                    <span class="font-medium">150-300 words (1-2 min)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Facebook post:</span>
+                                    <span class="font-medium">100-250 words (1 min)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Instagram caption:</span>
+                                    <span class="font-medium">125-150 words (30-45 sec)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="content-guideline p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                            <h3 class="font-semibold text-orange-800 dark:text-orange-300 mb-3">Academic Content</h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Abstract:</span>
+                                    <span class="font-medium">150-300 words (1-2 min)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Essay (undergrad):</span>
+                                    <span class="font-medium">1,500-2,500 words (7-11 min)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Research paper:</span>
+                                    <span class="font-medium">3,000-8,000 words (13-36 min)</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600 dark:text-gray-400">Thesis chapter:</span>
+                                    <span class="font-medium">8,000-10,000 words (36-45 min)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reading Speed Information -->
+<section class="py-12 bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">Reading Speed Insights</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-4 text-red-600 dark:text-red-400">Slow Readers</h3>
+                    <div class="text-3xl font-bold text-red-600 dark:text-red-400 mb-2">125-200 WPM</div>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• Beginning readers</li>
+                        <li>• Complex technical content</li>
+                        <li>• Second language readers</li>
+                        <li>• Careful proofreading</li>
+                        <li>• Legal documents</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">Average Readers</h3>
+                    <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">200-300 WPM</div>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• Most adults</li>
+                        <li>• Fiction books</li>
+                        <li>• News articles</li>
+                        <li>• Blog posts</li>
+                        <li>• Standard content</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-4 text-green-600 dark:text-green-400">Fast Readers</h3>
+                    <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">300-700 WPM</div>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• Speed reading techniques</li>
+                        <li>• Skimming content</li>
+                        <li>• Familiar subjects</li>
+                        <li>• Light fiction</li>
+                        <li>• Practiced readers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const textInput = document.getElementById('reading-text-input');
+    const readingSpeedSlider = document.getElementById('reading-speed');
+    const speakingSpeedSlider = document.getElementById('speaking-speed');
+    const toast = new window.ToastManager();
+
+    function updateCounts() {
+        const text = textInput.value;
+        
+        // Basic counts
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const chars = text.length;
+        const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+        const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim()).length || (text.trim() ? 1 : 0);
+
+        // Update basic stats
+        document.getElementById('rt-word-count').textContent = words.toLocaleString();
+        document.getElementById('rt-char-count').textContent = chars.toLocaleString();
+        document.getElementById('rt-sentence-count').textContent = sentences.toLocaleString();
+        document.getElementById('rt-paragraph-count').textContent = paragraphs.toLocaleString();
+
+        // Calculate times
+        updateTimes(words);
+    }
+
+    function updateTimes(wordCount) {
+        const readingWPM = parseInt(readingSpeedSlider.value);
+        const speakingWPM = parseInt(speakingSpeedSlider.value);
+
+        // Calculate reading time
+        const readingTotalSeconds = (wordCount / readingWPM) * 60;
+        const readingMinutes = Math.floor(readingTotalSeconds / 60);
+        const readingSeconds = Math.round(readingTotalSeconds % 60);
+        
+        // Calculate speaking time
+        const speakingTotalSeconds = (wordCount / speakingWPM) * 60;
+        const speakingMinutes = Math.floor(speakingTotalSeconds / 60);
+        const speakingSecondsRemainder = Math.round(speakingTotalSeconds % 60);
+
+        // Update displays
+        document.getElementById('reading-minutes').textContent = formatTime(readingMinutes, readingSeconds);
+        document.getElementById('speaking-minutes').textContent = formatTime(speakingMinutes, speakingSecondsRemainder);
+        document.getElementById('reading-wpm').textContent = readingWPM;
+        document.getElementById('speaking-wpm').textContent = speakingWPM;
+    }
+
+    function formatTime(minutes, seconds) {
+        if (minutes === 0 && seconds === 0) return '0 min';
+        if (minutes === 0) return `${seconds} sec`;
+        if (seconds === 0) return `${minutes} min`;
+        if (minutes >= 60) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            return `${hours}h ${mins}m`;
+        }
+        return `${minutes}m ${seconds}s`;
+    }
+
+    function getWordCount() {
+        const text = textInput.value;
+        return text.trim() ? text.trim().split(/\s+/).length : 0;
+    }
+
+    // Event listeners
+    textInput.addEventListener('input', updateCounts);
+    readingSpeedSlider.addEventListener('input', () => updateTimes(getWordCount()));
+    speakingSpeedSlider.addEventListener('input', () => updateTimes(getWordCount()));
+
+    // Action buttons
+    document.getElementById('copy-reading-text').addEventListener('click', async () => {
+        const text = textInput.value;
+        if (!text.trim()) {
+            toast.show('No text to copy.', 'warning');
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(text);
+            toast.show('Text copied to clipboard!', 'success');
+        } catch (error) {
+            toast.show('Failed to copy text.', 'error');
+        }
+    });
+
+    document.getElementById('download-reading-report').addEventListener('click', () => {
+        const text = textInput.value;
+        if (!text.trim()) {
+            toast.show('No content to generate report.', 'warning');
+            return;
+        }
+
+        const words = getWordCount();
+        const readingWPM = parseInt(readingSpeedSlider.value);
+        const speakingWPM = parseInt(speakingSpeedSlider.value);
+        
+        const readingTime = formatTime(Math.floor((words / readingWPM) * 60 / 60), Math.round(((words / readingWPM) * 60) % 60));
+        const speakingTime = formatTime(Math.floor((words / speakingWPM) * 60 / 60), Math.round(((words / speakingWPM) * 60) % 60));
+
+        const report = `Reading Time Analysis Report
+Generated: ${new Date().toLocaleDateString()}
+
+Content Statistics:
+- Words: ${words.toLocaleString()}
+- Characters: ${text.length.toLocaleString()}
+- Sentences: ${text.split(/[.!?]+/).filter(s => s.trim().length > 0).length}
+- Paragraphs: ${text.split(/\n\s*\n/).filter(p => p.trim()).length || 1}
+
+Time Estimates:
+- Reading Time: ${readingTime} (${readingWPM} WPM)
+- Speaking Time: ${speakingTime} (${speakingWPM} WPM)
+
+Original Content:
+${text}`;
+
+        const blob = new Blob([report], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `reading-time-report-${new Date().toISOString().slice(0, 10)}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        toast.show('Reading time report downloaded!', 'success');
+    });
+
+    document.getElementById('clear-reading-text').addEventListener('click', () => {
+        textInput.value = '';
+        updateCounts();
+        toast.show('Text cleared.', 'info');
+    });
+
+    // Auto-resize textarea
+    textInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 400) + 'px';
+    });
+
+    // Initial calculation
+    updateCounts();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 6970
+"GET /static/css/homepage.css HTTP/1.1" 304 0
+"GET /static/site.webmanifest HTTP/1.1" 404 1862
+"GET /static/favicon-32x32.png HTTP/1.1" 404 1865
+"GET /static/favicon-16x16.png HTTP/1.1" 404 1865
+"GET /static/android-chrome-192x192.png HTTP/1.1" 404 1892
+"GET /static/android-chrome-512x512.png HTTP/1.1" 404 1892
+"GET / HTTP/1.1" 200 6919
+"GET /static/css/main.css HTTP/1.1" 304 0
+"GET /static/site.webmanifest HTTP/1.1" 404 1862
+"GET / HTTP/1.1" 200 6857
+"GET /static/site.webmanifest HTTP/1.1" 404 1862
+"GET / HTTP/1.1" 200 6931
+"GET /static/site.webmanifest HTTP/1.1" 404 1862
+"GET /sitemap.xml HTTP/1.1" 200 154
+"GET /sitemap.xml HTTP/1.1" 200 154
+Not Found: /sitemap.xml/
+"GET /sitemap.xml/ HTTP/1.1" 404 1285
+C:\Users\manik\OneDrive\Desktop\word_counter\wordcounter\wordcounter\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /sitemap.xml HTTP/1.1" 301 0
+"GET /sitemap.xml/ HTTP/1.1" 200 154
+"GET /robots.txt HTTP/1.1" 301 0
+"GET /robots.txt/ HTTP/1.1" 200 117
+C:\Users\manik\OneDrive\Desktop\word_counter\wordcounter\counter\sitemaps.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\manik\OneDrive\Desktop\word_counter\wordcounter\counter\sitemaps.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 6913
+"GET /static/css/main.css HTTP/1.1" 304 0
+"GET /static/css/homepage.css HTTP/1.1" 304 0
+"GET /static/js/homepage.js HTTP/1.1" 304 0
+"GET /sitemap.xml HTTP/1.1" 301 0
+"GET /sitemap.xml/ HTTP/1.1" 200 154
+C:\Users\manik\OneDrive\Desktop\word_counter\wordcounter\wordcounter\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /sitemap.xml/
+"GET /sitemap.xml/ HTTP/1.1" 404 1270
+Not Found: /sitemap.xml/
+"GET /sitemap.xml/ HTTP/1.1" 404 1272
+Not Found: /sitemap.xml/
+"GET /sitemap.xml/ HTTP/1.1" 404 1237
+C:\Users\manik\OneDrive\Desktop\word_counter\wordcounter\wordcounter\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /sitemap.xml/ HTTP/1.1" 200 326
+"GET /robots.txt/ HTTP/1.1" 200 117
+"GET /robots.txt/ HTTP/1.1" 200 117
+"GET /robots.txt/ HTTP/1.1" 200 117

@@ -1,0 +1,488 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Compact Hero Section -->
+<section class="hero-section">
+    <div class="container mx-auto px-4 py-6">
+        <div class="hero-content text-center max-w-3xl mx-auto">
+            <h1 class="hero-title">
+                Text Cleaner & Formatter
+            </h1>
+            <p class="hero-subtitle">
+                Remove extra spaces, fix line breaks, and clean up text formatting for better readability.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Main Tool Section -->
+<section class="main-tool-section">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Input Card -->
+            <div class="tool-card mb-4">
+                <div class="textarea-section">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Original text (paste messy text here)
+                    </label>
+                    <div class="textarea-container">
+                        <textarea 
+                            id="input-text"
+                            placeholder="Paste your text with extra spaces, line breaks, or formatting issues here..."
+                            class="main-textarea w-full border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-700 dark:text-white transition-all duration-300 resize-vertical"
+                        ></textarea>
+                        <div class="textarea-overlay">
+                            <button id="clear-input-text" class="clear-btn transition-all duration-200">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cleaning Options -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mt-4">
+                    <button id="remove-extra-spaces" class="action-btn bg-red-600 hover:bg-red-700 text-white">
+                        <span>Fix Spaces</span>
+                    </button>
+                    <button id="remove-line-breaks" class="action-btn bg-blue-600 hover:bg-blue-700 text-white">
+                        <span>Remove Breaks</span>
+                    </button>
+                    <button id="normalize-breaks" class="action-btn bg-green-600 hover:bg-green-700 text-white">
+                        <span>Fix Breaks</span>
+                    </button>
+                    <button id="trim-lines" class="action-btn bg-purple-600 hover:bg-purple-700 text-white">
+                        <span>Trim Lines</span>
+                    </button>
+                    <button id="clean-all" class="action-btn bg-orange-600 hover:bg-orange-700 text-white">
+                        <span>Clean All</span>
+                    </button>
+                </div>
+
+                <!-- Advanced Cleaning Options -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+                    <button id="remove-tabs" class="action-btn bg-gray-600 hover:bg-gray-700 text-white">
+                        <span>Remove Tabs</span>
+                    </button>
+                    <button id="fix-quotes" class="action-btn bg-indigo-600 hover:bg-indigo-700 text-white">
+                        <span>Fix Quotes</span>
+                    </button>
+                    <button id="remove-empty-lines" class="action-btn bg-teal-600 hover:bg-teal-700 text-white">
+                        <span>Remove Empty</span>
+                    </button>
+                    <button id="add-line-numbers" class="action-btn bg-pink-600 hover:bg-pink-700 text-white">
+                        <span>Add Numbers</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Output Card -->
+            <div class="tool-card">
+                <div class="textarea-section">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Cleaned text
+                    </label>
+                    <div class="textarea-container">
+                        <textarea 
+                            id="output-text"
+                            placeholder="Cleaned text will appear here..."
+                            class="main-textarea w-full border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-700 dark:text-white transition-all duration-300 resize-vertical"
+                            readonly
+                        ></textarea>
+                    </div>
+                </div>
+
+               <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number text-red-600 dark:text-red-400" id="spaces-removed">0</span>
+                        <div class="stat-label">Spaces Removed</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number text-blue-600 dark:text-blue-400" id="chars-before">0</span>
+                        <div class="stat-label">Before</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number text-green-600 dark:text-green-400" id="chars-after">0</span>
+                        <div class="stat-label">After</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number text-purple-600 dark:text-purple-400" id="chars-saved">0</span>
+                        <div class="stat-label">Characters Saved</div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="copy-cleaned" class="action-btn bg-blue-600 hover:bg-blue-700 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Copy Cleaned</span>
+                    </button>
+                    <button id="download-cleaned" class="action-btn bg-green-600 hover:bg-green-700 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span>Download TXT</span>
+                    </button>
+                    <button id="replace-original" class="action-btn bg-orange-600 hover:bg-orange-700 text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                        <span>Replace Original</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Cleaning Guide Section -->
+<section class="py-8">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Text Cleaning Operations</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-green-600 dark:text-green-400 mb-3">What Gets Cleaned</h3>
+                        <div class="space-y-3">
+                            <div class="cleaning-example p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                <h4 class="font-medium text-sm mb-1">Extra Spaces</h4>
+                                <div class="text-xs font-mono">
+                                    <div class="text-red-600">Before: "Hello    world   !"</div>
+                                    <div class="text-green-600">After: "Hello world !"</div>
+                                </div>
+                            </div>
+                            
+                            <div class="cleaning-example p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                <h4 class="font-medium text-sm mb-1">Line Breaks</h4>
+                                <div class="text-xs font-mono">
+                                    <div class="text-red-600">Before: "Line 1\n\n\n\nLine 2"</div>
+                                    <div class="text-green-600">After: "Line 1\n\nLine 2"</div>
+                                </div>
+                            </div>
+                            
+                            <div class="cleaning-example p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                <h4 class="font-medium text-sm mb-1">Tab Characters</h4>
+                                <div class="text-xs font-mono">
+                                    <div class="text-red-600">Before: "Word\t\t\tWord"</div>
+                                    <div class="text-green-600">After: "Word Word"</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-blue-600 dark:text-blue-400 mb-3">Cleaning Options</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-start">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded mr-2 mt-0.5">Fix Spaces</span>
+                                <span class="text-gray-600 dark:text-gray-300">Remove multiple consecutive spaces</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mr-2 mt-0.5">Remove Breaks</span>
+                                <span class="text-gray-600 dark:text-gray-300">Convert all to single line</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded mr-2 mt-0.5">Fix Breaks</span>
+                                <span class="text-gray-600 dark:text-gray-300">Normalize to double line breaks</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded mr-2 mt-0.5">Trim Lines</span>
+                                <span class="text-gray-600 dark:text-gray-300">Remove spaces at line ends</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded mr-2 mt-0.5">Clean All</span>
+                                <span class="text-gray-600 dark:text-gray-300">Apply all cleaning operations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Use Cases Section -->
+<section class="py-12 bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">When to Use Text Cleaning</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-blue-600 dark:text-blue-400">Content Migration</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• Copy-paste from PDFs</li>
+                        <li>• Word to web content</li>
+                        <li>• Email to document</li>
+                        <li>• Database exports</li>
+                        <li>• Legacy system data</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Data Processing</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• CSV file cleaning</li>
+                        <li>• Log file processing</li>
+                        <li>• Survey responses</li>
+                        <li>• Form submissions</li>
+                        <li>• API response cleaning</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-purple-600 dark:text-purple-400">Content Publishing</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• Blog post formatting</li>
+                        <li>• Social media posts</li>
+                        <li>• Email newsletters</li>
+                        <li>• Documentation cleanup</li>
+                        <li>• Manuscript preparation</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-orange-600 dark:text-orange-400">Code & Development</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• Code formatting</li>
+                        <li>• JSON cleanup</li>
+                        <li>• SQL query formatting</li>
+                        <li>• Configuration files</li>
+                        <li>• Documentation strings</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Academic Work</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• Research paper formatting</li>
+                        <li>• Citation cleanup</li>
+                        <li>• Reference formatting</li>
+                        <li>• Thesis preparation</li>
+                        <li>• Bibliography organization</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-3 text-teal-600 dark:text-teal-400">Business Documents</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>• Report formatting</li>
+                        <li>• Contract cleanup</li>
+                        <li>• Proposal preparation</li>
+                        <li>• Meeting notes</li>
+                        <li>• Client communications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputText = document.getElementById('input-text');
+    const outputText = document.getElementById('output-text');
+    const toast = new window.ToastManager();
+
+    function updateStats(originalLength, cleanedLength) {
+        const saved = originalLength - cleanedLength;
+        document.getElementById('chars-before').textContent = originalLength.toLocaleString();
+        document.getElementById('chars-after').textContent = cleanedLength.toLocaleString();
+        document.getElementById('chars-saved').textContent = saved.toLocaleString();
+    }
+
+    function countExtraSpaces(original, cleaned) {
+        const originalSpaces = (original.match(/\s/g) || []).length;
+        const cleanedSpaces = (cleaned.match(/\s/g) || []).length;
+        const spacesRemoved = Math.max(0, originalSpaces - cleanedSpaces);
+        document.getElementById('spaces-removed').textContent = spacesRemoved.toLocaleString();
+        return spacesRemoved;
+    }
+
+    function removeExtraSpaces(text) {
+        return text.replace(/[ \t]+/g, ' ');
+    }
+
+    function removeLineBreaks(text) {
+        return text.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function normalizeLineBreaks(text) {
+        return text.replace(/\n\s*\n\s*\n+/g, '\n\n').trim();
+    }
+
+    function trimLines(text) {
+        return text.split('\n').map(line => line.trim()).join('\n');
+    }
+
+    function removeTabs(text) {
+        return text.replace(/\t+/g, ' ').replace(/\s+/g, ' ');
+    }
+
+    function fixQuotes(text) {
+        return text
+            .replace(/[""]/g, '"')
+            .replace(/['']/g, "'")
+            .replace(/…/g, '...');
+    }
+
+    function removeEmptyLines(text) {
+        return text.split('\n').filter(line => line.trim().length > 0).join('\n');
+    }
+
+    function addLineNumbers(text) {
+        return text.split('\n').map((line, index) => `${index + 1}. ${line}`).join('\n');
+    }
+
+    function cleanAll(text) {
+        // Comprehensive cleaning
+        text = text.replace(/[ \t]+/g, ' '); // Remove extra spaces and tabs
+        text = text.replace(/\n\s*\n\s*\n+/g, '\n\n'); // Normalize line breaks
+        text = text.split('\n').map(line => line.trim()).join('\n'); // Trim lines
+        text = text.replace(/[""]/g, '"').replace(/['']/g, "'"); // Fix quotes
+        text = text.replace(/…/g, '...'); // Fix ellipsis
+        return text.trim();
+    }
+
+    function performCleaning(cleanFunction, successMessage) {
+        const original = inputText.value;
+        if (!original.trim()) {
+            toast.show('No text to clean.', 'warning');
+            return;
+        }
+        
+        const cleaned = cleanFunction(original);
+        outputText.value = cleaned;
+        updateStats(original.length, cleaned.length);
+        countExtraSpaces(original, cleaned);
+        toast.show(successMessage, 'success');
+    }
+
+    // Event listeners for cleaning buttons
+    document.getElementById('remove-extra-spaces').addEventListener('click', () => {
+        performCleaning(removeExtraSpaces, 'Extra spaces removed!');
+    });
+
+    document.getElementById('remove-line-breaks').addEventListener('click', () => {
+        performCleaning(removeLineBreaks, 'Line breaks removed!');
+    });
+
+    document.getElementById('normalize-breaks').addEventListener('click', () => {
+        performCleaning(normalizeLineBreaks, 'Line breaks normalized!');
+    });
+
+    document.getElementById('trim-lines').addEventListener('click', () => {
+        performCleaning(trimLines, 'Lines trimmed!');
+    });
+
+    document.getElementById('remove-tabs').addEventListener('click', () => {
+        performCleaning(removeTabs, 'Tabs removed!');
+    });
+
+    document.getElementById('fix-quotes').addEventListener('click', () => {
+        performCleaning(fixQuotes, 'Quotes fixed!');
+    });
+
+    document.getElementById('remove-empty-lines').addEventListener('click', () => {
+        performCleaning(removeEmptyLines, 'Empty lines removed!');
+    });
+
+    document.getElementById('add-line-numbers').addEventListener('click', () => {
+        performCleaning(addLineNumbers, 'Line numbers added!');
+    });
+
+    document.getElementById('clean-all').addEventListener('click', () => {
+        performCleaning(cleanAll, 'Text fully cleaned!');
+    });
+
+    // Utility buttons
+    document.getElementById('copy-cleaned').addEventListener('click', async () => {
+        const cleaned = outputText.value;
+        if (!cleaned.trim()) {
+            toast.show('No cleaned text to copy.', 'warning');
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(cleaned);
+            toast.show('Cleaned text copied!', 'success');
+        } catch (error) {
+            toast.show('Failed to copy text.', 'error');
+        }
+    });
+
+    document.getElementById('download-cleaned').addEventListener('click', () => {
+        const cleaned = outputText.value;
+        if (!cleaned.trim()) {
+            toast.show('No cleaned text to download.', 'warning');
+            return;
+        }
+
+        const blob = new Blob([cleaned], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `cleaned-text-${new Date().toISOString().slice(0, 10)}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        toast.show('Cleaned text downloaded!', 'success');
+    });
+
+    document.getElementById('replace-original').addEventListener('click', () => {
+        const cleaned = outputText.value;
+        if (!cleaned.trim()) {
+            toast.show('No cleaned text to replace with.', 'warning');
+            return;
+        }
+
+        inputText.value = cleaned;
+        outputText.value = '';
+        updateStats(0, 0);
+        document.getElementById('spaces-removed').textContent = '0';
+        toast.show('Original text replaced!', 'info');
+    });
+
+    document.getElementById('clear-input-text').addEventListener('click', () => {
+        inputText.value = '';
+        outputText.value = '';
+        updateStats(0, 0);
+        document.getElementById('spaces-removed').textContent = '0';
+        toast.show('All text cleared!', 'info');
+    });
+
+    // Auto-analyze input text for preview stats
+    inputText.addEventListener('input', () => {
+        const text = inputText.value;
+        updateStats(text.length, text.length);
+        document.getElementById('spaces-removed').textContent = '0';
+    });
+
+    // Auto-resize textareas
+    [inputText, outputText].forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 400) + 'px';
+        });
+    });
+
+    // Initial stats
+    updateStats(0, 0);
+});
+</script>
+{% endblock %}

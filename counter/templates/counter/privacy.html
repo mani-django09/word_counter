@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Compact Hero Section -->
+<section class="hero-section">
+    <div class="container mx-auto px-4 py-6">
+        <div class="hero-content text-center max-w-3xl mx-auto">
+            <h1 class="hero-title">
+                Privacy Policy
+            </h1>
+            <p class="hero-subtitle">
+                How we protect your privacy and handle your data at Word Counter Pro.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Privacy Content -->
+<section class="main-tool-section">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="tool-card">
+                <div class="prose prose-gray dark:prose-invert max-w-none">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
+                        <strong>Last Updated:</strong> January 2025
+                    </p>
+
+                    <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-8">
+                        <h2 class="text-lg font-bold text-green-800 dark:text-green-300 mb-2">Privacy Promise</h2>
+                        <p class="text-green-700 dark:text-green-300 text-sm">
+                            <strong>Your text is completely private.</strong> All processing happens locally in your browser. We never see, store, or transmit your content. This isn't just a policy—it's how our technology works.
+                        </p>
+                    </div>
+
+                    <div class="space-y-8">
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">1. Information We Don't Collect</h2>
+                            <div class="text-gray-600 dark:text-gray-300 space-y-3">
+                                <p><strong>Your Text Content:</strong> We never receive, store, or process your text on our servers. All analysis happens in your browser.</p>
+                                <p><strong>Personal Information:</strong> We don't collect names, email addresses, or personal details unless you contact us directly.</p>
+                                <p><strong>Files:</strong> Uploaded files are processed locally and never transmitted to our servers.</p>
+                                <p><strong>Account Data:</strong> We don't require accounts or user registration.</p>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">2. Information We May Collect</h2>
+                            <div class="text-gray-600 dark:text-gray-300 space-y-3">
+                                <p><strong>Anonymous Analytics:</strong> We may collect anonymous usage statistics to improve our service, including:</p>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Page views and tool usage frequency</li>
+                                    <li>Browser type and operating system (anonymized)</li>
+                                    <li>General geographic location (country level only)</li>
+                                    <li>Performance metrics to optimize loading times</li>
+                                </ul>
+                                <p><strong>Technical Data:</strong> Standard web server logs may include IP addresses, timestamps, and error logs for security and maintenance purposes.</p>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">3. How Our Technology Protects You</h2>
+                            <div class="text-gray-600 dark:text-gray-300 space-y-3">
+                                <p><strong>Client-Side Processing:</strong> All text analysis algorithms run in your browser using JavaScript. Your text never leaves your device.</p>
+                                <p><strong>No Server Communication:</strong> Our tools don't send your content to any external servers for processing.</p>
+                                <p><strong>Local Storage Only:</strong> Any temporary data is stored locally in your browser and automatically cleared when you close the tab.</p>
+                                <p><strong>Secure Connection:</strong> All communication with our servers uses HTTPS encryption, though no content data is transmitted.</p>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">4. Cookies and Local Storage</h2>
+                            <div class="text-gray-600 dark:text-gray-300 space-y-3">
+                                <p>We use minimal cookies and local storage for:</p>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Remembering your theme preference (dark/light mode)</li>
+                                    <li>Storing tool preferences and settings</li>
+                                    <li>Anonymous analytics (if enabled)</li>
+                                </ul>
+                                <p>You can disable cookies in your browser settings without affecting the core functionality of our tools.</p>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">5. Third-Party Services</h2>
+                            <div class="text-gray-600 dark:text-gray-300 space-y-3">
+                                <p>We may use third-party services for:</p>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li><strong>Analytics:</strong> Anonymous usage statistics (Google Analytics with IP anonymization)</li>
+                                    <li><strong>CDN:</strong> Content delivery for faster loading (Cloudflare)</li>
+                                    <li><strong>Hosting:</strong> Website hosting services</li>
+                                </ul>
+                                <p>These services do not have access to your text content as it's processed entirely in your browser.</p>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">6. Data Retention</h2>
+                            <div class="text-gray-600 dark:text-gray-300 space-y-3">
+                                <p><strong>Content Data:</strong> Zero retention. We never receive your content.</p>
+                                <p><strong>Analytics Data:</strong> Anonymous usage data is retained for up to 26 months for service improvement.</p>
+                                <p><strong>Server Logs:</strong> Technical logs are retained for 30 days for security purposes.</p>
+                                <p><strong>Contact Information:</strong> If you email us, we retain correspondence for up to 2 years for support purposes.</p>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">7. Your Rights</h2>
+                            <div class="text-gray-600 dark:text-gray-300 space-y-3">
+                                <p>You have the right to:</p>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>Know what data we collect (detailed in this policy)</li>
+                                    <li>Request deletion of any personal data we may have</li>
+                                    <li>Opt out of analytics tracking</li>
+                                    <li>Access any personal information we hold</li>
+                                    <li>Use our service without providing any personal information</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">8. Security Measures</h2>
+                            <div class="text-gray-600 dark:text-gray-300 space-y-3">
+                                <p>We implement various security measures:</p>
+                                <ul class="list-disc pl-6 space-y-1">
+                                    <li>HTTPS encryption for all connections</li>
+                                    <li>Regular security audits and updates</li>
+                                    <li>Minimal data collection to reduce risk</li>
+                                    <li>Secure hosting infrastructure</li>
+                                    <li>No database storage of user content</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">9. Children's Privacy</h2>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Our service is safe for all ages. We don't knowingly collect personal information from anyone, including children under 13. Since we don't require registration and process everything locally, children can use our tools safely.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">10. International Users</h2>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Word Counter Pro is available worldwide. Since processing happens in your browser, your data stays in your country. Our servers are located in the United States, but they only serve the application code, not your content.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">11. Changes to This Policy</h2>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                We may update this privacy policy occasionally. Changes will be posted on this page with an updated date. We encourage you to review this policy periodically. Continued use of our service constitutes acceptance of any changes.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">12. Contact Us</h2>
+                            <div class="text-gray-600 dark:text-gray-300">
+                                <p class="mb-3">Questions about this privacy policy? Contact us:</p>
+                                <ul class="space-y-1">
+                                    <li><strong>Email:</strong> privacy@wordcounter3.com</li>
+                                    <li><strong>Subject Line:</strong> Privacy Policy Question</li>
+                                </ul>
+                                <p class="mt-3 text-sm">
+                                    We typically respond within 48 hours and are committed to addressing all privacy concerns promptly.
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

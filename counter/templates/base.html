@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="{% if request.session.dark_mode %}dark{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    
+    <title>{{ page_title|default:"Word Counter - Free Online Text Analysis Tools | WordCounter3.com" }}</title>
+    <meta name="description" content="{{ meta_description|default:'Free online word counter and text analysis tools at WordCounter3.com. Count words, characters, calculate reading time, and more. Fast, accurate, and completely private.' }}">
+    
+    <!-- Canonical URL -->
+    {% if canonical_url %}<link rel="canonical" href="{{ canonical_url }}">{% endif %}
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'android-chrome-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{% static 'android-chrome-512x512.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    
+    <!-- Theme colors -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="WordCounter3">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{{ og_title|default:page_title }}">
+    <meta property="og:description" content="{{ og_description|default:meta_description }}">
+    <meta property="og:image" content="{% static 'android-chrome-512x512.png' %}">
+    <meta property="og:site_name" content="WordCounter3">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="{{ og_title|default:page_title }}">
+    <meta property="twitter:description" content="{{ og_description|default:meta_description }}">
+    <meta property="twitter:image" content="{% static 'android-chrome-512x512.png' %}">
+        
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'pulse-slow': 'pulse 3s infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    
+    {% if schema_data %}
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+        {{ schema_data|safe }}
+    </script>
+    {% endif %}
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
+    <!-- Header with Updated Logo -->
+    <header class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Updated Logo Section -->
+                <div class="flex items-center">
+                    <a href="{% url 'counter:word_counter' %}" class="flex items-center space-x-3 text-xl font-bold group">
+                        <div class="relative">
+                            <!-- Simple Logo without green ball -->
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-200 shadow-lg">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:to-purple-700 transition-all duration-200">
+                            WordCounter3
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="{% url 'counter:word_counter' %}" class="nav-link {% if request.resolver_match.url_name == 'word_counter' %}active{% endif %} px-4 py-2 rounded-lg transition-all duration-200 relative group">
+                        <span class="relative z-10">Word Counter</span>
+                        <div class="absolute inset-0 bg-blue-500/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-200"></div>
+                    </a>
+                    <a href="{% url 'counter:character_counter' %}" class="nav-link {% if request.resolver_match.url_name == 'character_counter' %}active{% endif %} px-4 py-2 rounded-lg transition-all duration-200 relative group">
+                        <span class="relative z-10">Character Counter</span>
+                        <div class="absolute inset-0 bg-blue-500/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-200"></div>
+                    </a>
+                    <a href="{% url 'counter:reading_time' %}" class="nav-link {% if request.resolver_match.url_name == 'reading_time' %}active{% endif %} px-4 py-2 rounded-lg transition-all duration-200 relative group">
+                        <span class="relative z-10">Reading Time</span>
+                        <div class="absolute inset-0 bg-blue-500/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-200"></div>
+                    </a>
+                    <a href="{% url 'counter:space_cleaner' %}" class="nav-link {% if request.resolver_match.url_name == 'space_cleaner' %}active{% endif %} px-4 py-2 rounded-lg transition-all duration-200 relative group">
+                        <span class="relative z-10">Text Cleaner</span>
+                        <div class="absolute inset-0 bg-blue-500/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-200"></div>
+                    </a>
+                    <a href="{% url 'counter:case_converter' %}" class="nav-link {% if request.resolver_match.url_name == 'case_converter' %}active{% endif %} px-4 py-2 rounded-lg transition-all duration-200 relative group">
+                        <span class="relative z-10">Case Converter</span>
+                        <div class="absolute inset-0 bg-blue-500/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-200"></div>
+                    </a>
+                </div>
+                
+                <!-- Right Side Controls -->
+                <div class="flex items-center space-x-3">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 group" aria-label="Toggle dark mode">
+                        <div class="relative w-5 h-5">
+                            <svg class="w-5 h-5 absolute inset-0 hidden dark:block transform group-hover:scale-110 transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <svg class="w-5 h-5 absolute inset-0 block dark:hidden transform group-hover:scale-110 transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-button" class="md:hidden p-2.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md">
+                <div class="space-y-1">
+                    <a href="{% url 'counter:word_counter' %}" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-all duration-200 mx-2">Word Counter</a>
+                    <a href="{% url 'counter:character_counter' %}" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-all duration-200 mx-2">Character Counter</a>
+                    <a href="{% url 'counter:reading_time' %}" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-all duration-200 mx-2">Reading Time</a>
+                    <a href="{% url 'counter:space_cleaner' %}" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-all duration-200 mx-2">Text Cleaner</a>
+                    <a href="{% url 'counter:case_converter' %}" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-all duration-200 mx-2">Case Converter</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Updated Footer -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200/50 dark:border-gray-700/50 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">WordCounter3</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed max-w-md">
+                        Professional text analysis tools for writers, students, and content creators. Fast, accurate, and completely private at wordcounter3.com.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-3">Tools</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'counter:word_counter' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Word Counter</a></li>
+                        <li><a href="{% url 'counter:character_counter' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Character Counter</a></li>
+                        <li><a href="{% url 'counter:reading_time' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Reading Time</a></li>
+                        <li><a href="{% url 'counter:space_cleaner' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Text Cleaner</a></li>
+                        <li><a href="{% url 'counter:case_converter' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Case Converter</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-3">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'counter:about' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">About Us</a></li>
+                        <li><a href="{% url 'counter:contact' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Contact</a></li>
+                        <li><a href="{% url 'counter:privacy' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Privacy Policy</a></li>
+                        <li><a href="{% url 'counter:terms' %}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-center text-gray-500 dark:text-gray-400 text-sm">
+                        © {% now "Y" %} WordCounter3.com. All rights reserved.
+                    </p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <span class="text-xs text-gray-400">Professional text analysis</span>
+                        <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                        <span class="text-xs text-gray-400">Made for writers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-2 transform transition-all duration-300">
+            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span id="toast-message">Success!</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

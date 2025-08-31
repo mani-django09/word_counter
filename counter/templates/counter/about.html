@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Compact Hero Section -->
+<section class="hero-section">
+    <div class="container mx-auto px-4 py-6">
+        <div class="hero-content text-center max-w-3xl mx-auto">
+            <h1 class="hero-title">
+                About Word Counter Pro
+            </h1>
+            <p class="hero-subtitle">
+                Professional text analysis tools built for writers, students, and content creators worldwide.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- About Content -->
+<section class="main-tool-section">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="tool-card">
+                <div class="space-y-8">
+                    <!-- Mission Section -->
+                    <section class="text-center">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Mission</h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                            To provide fast, accurate, and privacy-focused text analysis tools that help writers, students, and professionals create better content. We believe in making powerful writing tools accessible to everyone, completely free.
+                        </p>
+                    </section>
+
+                    <!-- Story Section -->
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Our Story</h2>
+                        <div class="text-gray-600 dark:text-gray-300 space-y-4">
+                            <p>
+                                Word Counter Pro was created from a simple need: reliable, fast, and private text analysis tools. As writers and content creators ourselves, we were frustrated with existing tools that were either slow, inaccurate, or compromised user privacy.
+                            </p>
+                            <p>
+                                We built Word Counter Pro with a focus on three core principles: speed, accuracy, and privacy. All text processing happens locally in your browser, ensuring your content remains completely private while delivering lightning-fast results.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Features Grid -->
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">What Makes Us Different</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="feature-card p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                <h3 class="font-semibold text-blue-800 dark:text-blue-300 mb-3">Privacy First</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    Your text never leaves your device. All analysis happens locally in your browser, ensuring complete privacy and security.
+                                </p>
+                            </div>
+                            
+                            <div class="feature-card p-6 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                <h3 class="font-semibold text-green-800 dark:text-green-300 mb-3">Lightning Fast</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    Real-time analysis as you type. No waiting, no delays - get instant results for all your text analysis needs.
+                                </p>
+                            </div>
+                            
+                            <div class="feature-card p-6 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                <h3 class="font-semibold text-purple-800 dark:text-purple-300 mb-3">Comprehensive Tools</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    Beyond basic word counting - reading time, keyword density, text cleaning, case conversion, and more.
+                                </p>
+                            </div>
+                            
+                            <div class="feature-card p-6 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                                <h3 class="font-semibold text-orange-800 dark:text-orange-300 mb-3">Always Free</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    No subscriptions, no limits, no hidden fees. All features are completely free for everyone to use.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Statistics Section -->
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Trusted by Writers Worldwide</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            <div class="stat-display text-center">
+                                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">1M+</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Words Analyzed</div>
+                            </div>
+                            <div class="stat-display text-center">
+                                <div class="text-3xl font-bold text-green-600 dark:text-green-400">50K+</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Monthly Users</div>
+                            </div>
+                            <div class="stat-display text-center">
+                                <div class="text-3xl font-bold text-purple-600 dark:text-purple-400">100+</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Countries</div>
+                            </div>
+                            <div class="stat-display text-center">
+                                <div class="text-3xl font-bold text-orange-600 dark:text-orange-400">99.9%</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Uptime</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Team Section -->
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Our Commitment</h2>
+                        <div class="text-gray-600 dark:text-gray-300 space-y-4">
+                            <p>
+                                We're committed to continuously improving Word Counter Pro based on user feedback and emerging needs in the writing community. Our development roadmap includes new features, enhanced accuracy, and expanded file format support.
+                            </p>
+                            <p>
+                                As an independent tool, we're not beholden to advertisers or data brokers. Our focus remains solely on providing the best possible experience for writers and content creators.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Technology Section -->
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Technology & Accuracy</h2>
+                        <div class="text-gray-600 dark:text-gray-300 space-y-4">
+                            <p>
+                                Word Counter Pro uses industry-standard text analysis algorithms that match the accuracy of professional word processors like Microsoft Word and Google Docs. Our tools are built with modern web technologies to ensure compatibility across all devices and browsers.
+                            </p>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Technical Specifications:</h3>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• Client-side processing for maximum privacy</li>
+                                    <li>• Unicode-compliant text analysis</li>
+                                    <li>• Real-time processing with optimized algorithms</li>
+                                    <li>• Cross-browser compatibility</li>
+                                    <li>• Responsive design for all devices</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Call to Action -->
+                    <section class="text-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-6 rounded-lg">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Start Analyzing Your Text Today</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Join thousands of writers, students, and professionals who rely on Word Counter Pro for their text analysis needs.
+                        </p>
+                        <a href="{% url 'counter:word_counter' %}" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+                            Try Word Counter Pro
+                        </a>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

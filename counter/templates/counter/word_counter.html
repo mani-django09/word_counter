@@ -1,0 +1,374 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Compact Hero Section -->
+<section class="hero-section">
+    <div class="container mx-auto px-4 py-6">
+        <div class="hero-content text-center max-w-3xl mx-auto">
+            <h1 class="hero-title">
+                WordCounter3
+            </h1>
+            <p class="hero-subtitle">
+                Count words, characters, and analyze your text instantly. Professional tools for writers and content creators.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Main Tool Section with Side Layout -->
+<section class="main-tool-section">
+    <div class="container mx-auto px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="tool-card">
+                <div class="side-layout">
+                    <!-- Left Side - Textarea and File Upload -->
+                    <div class="textarea-section">
+                        <div class="textarea-container">
+                            <textarea 
+                                id="main-textarea"
+                                placeholder="Start typing or paste your text here to get instant word count and analysis..."
+                                class="textarea-side"
+                            ></textarea>
+                            <div class="textarea-overlay">
+                                <button id="clear-text" class="clear-btn">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- File Upload -->
+                        <div class="file-upload-section">
+                            <div class="file-drop-zone">
+                                <input type="file" id="file-input" class="hidden" accept=".txt,.docx,.pdf">
+                                <label for="file-input" class="cursor-pointer block">
+                                    <div class="flex flex-col items-center">
+                                        <svg class="w-6 h-6 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                        </svg>
+                                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">
+                                            Drop files or click to upload
+                                        </span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                            TXT, DOCX, PDF (max 5MB)
+                                        </span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side - Results Sidebar -->
+                    <div class="results-sidebar">
+                        <!-- Main Stats Card -->
+                        <div class="results-card">
+                            <div class="mini-stats-grid">
+                                <div class="mini-stat-item">
+                                    <div class="mini-stat-number text-blue-600 dark:text-blue-400" id="word-count">0</div>
+                                    <div class="mini-stat-label">Words</div>
+                                </div>
+                                <div class="mini-stat-item">
+                                    <div class="mini-stat-number text-green-600 dark:text-green-400" id="character-count">0</div>
+                                    <div class="mini-stat-label">Characters</div>
+                                </div>
+                                <div class="mini-stat-item">
+                                    <div class="mini-stat-number text-purple-600 dark:text-purple-400" id="sentence-count">0</div>
+                                    <div class="mini-stat-label">Sentences</div>
+                                </div>
+                                <div class="mini-stat-item">
+                                    <div class="mini-stat-number text-orange-600 dark:text-orange-400" id="paragraph-count">0</div>
+                                    <div class="mini-stat-label">Paragraphs</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reading Time Card -->
+                        <div class="results-card" id="reading-time-card" style="display: none;">
+                            <div class="sidebar-section">
+                                <h3 class="sidebar-title">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                    Reading Time
+                                </h3>
+                                <div class="sidebar-content space-y-2">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">Slow:</span>
+                                        <span id="reading-time-slow" class="font-medium">0 min</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">Average:</span>
+                                        <span id="reading-time-avg" class="font-medium">0 min</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">Fast:</span>
+                                        <span id="reading-time-fast" class="font-medium">0 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Speaking Time Card -->
+                        <div class="results-card" id="speaking-time-card" style="display: none;">
+                            <div class="sidebar-section">
+                                <h3 class="sidebar-title">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                                    </svg>
+                                    Speaking Time
+                                </h3>
+                                <div class="sidebar-content space-y-2">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">Slow:</span>
+                                        <span id="speaking-time-slow" class="font-medium">0 min</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">Average:</span>
+                                        <span id="speaking-time-avg" class="font-medium">0 min</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">Fast:</span>
+                                        <span id="speaking-time-fast" class="font-medium">0 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Details Card -->
+                        <div class="results-card" id="details-card" style="display: none;">
+                            <div class="sidebar-section">
+                                <h3 class="sidebar-title">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                    Details
+                                </h3>
+                                <div class="sidebar-content space-y-2">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">No spaces:</span>
+                                        <span id="character-count-no-spaces" class="font-medium">0</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">Lines:</span>
+                                        <span id="line-count" class="font-medium">0</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600 dark:text-gray-300">Avg/sentence:</span>
+                                        <span id="avg-words-sentence" class="font-medium">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons Card -->
+                        <div class="results-card">
+                            <div class="compact-action-buttons">
+                                <button id="copy-text-btn" class="compact-btn bg-blue-600 hover:bg-blue-700 text-white">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span>Copy Text</span>
+                                </button>
+                                <button id="download-txt-btn" class="compact-btn bg-green-600 hover:bg-green-700 text-white">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <span>Download TXT</span>
+                                </button>
+                                <button id="print-btn" class="compact-btn bg-gray-600 hover:bg-gray-700 text-white">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                                    </svg>
+                                    <span>Print</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Keyword Density Section -->
+<section id="keyword-section" class="keyword-section hidden">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Top Keywords</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <th class="text-left py-2 px-3 font-semibold text-gray-900 dark:text-white">Word</th>
+                                <th class="text-left py-2 px-3 font-semibold text-gray-900 dark:text-white">Count</th>
+                                <th class="text-left py-2 px-3 font-semibold text-gray-900 dark:text-white">Density</th>
+                            </tr>
+                        </thead>
+                        <tbody id="keyword-table" class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <!-- Keywords populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Other Tools Section -->
+<section class="other-tools-section">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
+                More Writing Tools
+            </h2>
+            <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Enhance your writing with our comprehensive suite of text analysis tools.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <a href="{% url 'counter:character_counter' %}" class="tool-link-card group">
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-lg p-5 shadow-lg">
+                    <div class="tool-icon w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-3">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Character Counter</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Count characters with and without spaces for social media limits.</p>
+                </div>
+            </a>
+
+            <a href="{% url 'counter:reading_time' %}" class="tool-link-card group">
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-lg p-5 shadow-lg">
+                    <div class="tool-icon w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-3">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Reading Time</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Calculate reading and speaking time for your content.</p>
+                </div>
+            </a>
+
+            <a href="{% url 'counter:space_cleaner' %}" class="tool-link-card group">
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-lg p-5 shadow-lg">
+                    <div class="tool-icon w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-3">
+                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Text Cleaner</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Remove extra spaces and clean up text formatting.</p>
+                </div>
+            </a>
+
+            <a href="{% url 'counter:case_converter' %}" class="tool-link-card group">
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-lg p-5 shadow-lg">
+                    <div class="tool-icon w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mb-3">
+                        <svg class="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Case Converter</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Convert text to different cases instantly.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-8">
+                Frequently Asked Questions
+            </h2>
+            
+            <div class="space-y-3">
+                <div class="faq-item">
+                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">How accurate is this word counter?</h3>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">Our word counter uses industry-standard algorithms, providing the same accuracy as Microsoft Word and Google Docs. It counts words by identifying text separated by spaces and punctuation.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">Is my text stored anywhere?</h3>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">No, your text is completely private. All analysis happens locally in your browser. We don't store, save, or transmit your content to any servers.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">What file formats are supported?</h3>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">You can upload TXT, DOCX, and PDF files up to 5MB. Text is extracted and analyzed instantly.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">How is reading time calculated?</h3>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">Reading time is calculated based on average reading speeds: slow readers at 125 words per minute, average readers at 225 WPM, and fast readers at 350 WPM.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">Can I use this on mobile?</h3>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">Yes! Our word counter is fully responsive and works perfectly on smartphones, tablets, and desktop computers. The interface adapts to your screen size.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/homepage.js' %}"></script>
+{% endblock %}

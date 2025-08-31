@@ -1,0 +1,22 @@
+{
+    "name": "WordCounter3 - Professional Text Analysis Tools",
+    "short_name": "WordCounter3",
+    "description": "Free online word counter, character counter, and text analysis tools",
+    "icons": [
+        {
+            "src": "/static/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#2563eb",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/"
+}
