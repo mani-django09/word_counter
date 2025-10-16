@@ -44,7 +44,7 @@ class WordCounterView(BaseToolView):
         }
     
     def get_schema_data(self):
-        return {
+        schema_dict = {
             "@context": "https://schema.org",
             "@type": ["SoftwareApplication", "WebApplication"],
             "name": "Word Counter Tool",
@@ -63,6 +63,7 @@ class WordCounterView(BaseToolView):
                 "name": "Word Counter"
             }
         }
+        return json.dumps(schema_dict)
 
 class CharacterCounterView(BaseToolView):
     template_name = 'counter/character_counter.html'

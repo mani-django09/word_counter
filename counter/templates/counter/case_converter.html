@@ -2,115 +2,428 @@
 {% load static %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<style>
+    /* Modern Design Variables */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        --card-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.12);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Hero Section */
+    .hero-modern {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 3rem 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-modern::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 1;
+    }
+
+    .hero-content-modern {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-title-modern {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800;
+        color: white;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+        letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle-modern {
+        font-size: clamp(1rem, 2vw, 1.125rem);
+        color: rgba(255, 255, 255, 0.95);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Modern Card Design */
+    .tool-card-modern {
+        background: white;
+        border-radius: 24px;
+        box-shadow: var(--card-shadow);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        transition: var(--transition);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .tool-card-modern {
+        background: rgb(31, 41, 55);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tool-card-modern:hover {
+        box-shadow: var(--card-shadow-hover);
+        transform: translateY(-2px);
+    }
+
+    /* Textarea Styling */
+    .textarea-modern {
+        width: 100%;
+        min-height: 200px;
+        padding: 1.5rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 16px;
+        font-size: 1rem;
+        line-height: 1.6;
+        resize: vertical;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+
+    .dark .textarea-modern {
+        background: rgb(17, 24, 39);
+        border-color: rgb(55, 65, 81);
+        color: white;
+    }
+
+    .textarea-modern:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    /* Button Styles */
+    .btn-modern {
+        padding: 0.875rem 1.75rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-modern::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-modern:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .btn-modern span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-modern:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-modern:active {
+        transform: translateY(0);
+    }
+
+    /* Case Button Grid */
+    .case-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+        .case-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Action Buttons Container */
+    .action-buttons-modern {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+        .action-buttons-modern {
+            flex-direction: column;
+        }
+        
+        .action-buttons-modern .btn-modern {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    /* Clear Button */
+    .clear-btn-modern {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(239, 68, 68, 0.1);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        opacity: 0;
+    }
+
+    .textarea-container-modern:hover .clear-btn-modern,
+    .textarea-modern:focus ~ .clear-btn-modern {
+        opacity: 1;
+    }
+
+    .clear-btn-modern:hover {
+        background: rgba(239, 68, 68, 0.2);
+        transform: scale(1.1);
+    }
+
+    /* Case Type Cards */
+    .case-type-card {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 1.5rem;
+        border-radius: 16px;
+        transition: var(--transition);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .case-type-card {
+        background: linear-gradient(135deg, rgb(31, 41, 55) 0%, rgb(17, 24, 39) 100%);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .case-type-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .case-example-code {
+        background: white;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: inline-block;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .case-example-code {
+        background: rgb(17, 24, 39);
+    }
+
+    /* Use Cases Grid */
+    .use-case-card {
+        background: white;
+        padding: 1.75rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        transition: var(--transition);
+        border-left: 4px solid;
+        height: 100%;
+    }
+
+    .dark .use-case-card {
+        background: rgb(31, 41, 55);
+    }
+
+    .use-case-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Character Counter Badge */
+    .char-counter-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: rgba(102, 126, 234, 0.1);
+        color: #667eea;
+        border-radius: 999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
+
+    .dark .char-counter-badge {
+        background: rgba(102, 126, 234, 0.2);
+        color: #a5b4fc;
+    }
+
+    /* Loading Animation */
+    @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+    }
+
+    .processing {
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        background-size: 1000px 100%;
+        animation: shimmer 2s infinite;
+    }
+
+    /* Responsive Container */
+    .container-modern {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    @media (min-width: 640px) {
+        .container-modern {
+            padding: 0 1.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .container-modern {
+            padding: 0 2rem;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<!-- Compact Hero Section -->
-<section class="hero-section">
-    <div class="container mx-auto px-4 py-6">
-        <div class="hero-content text-center max-w-3xl mx-auto">
-            <h1 class="hero-title">
-                Case Converter
+<!-- Modern Hero Section -->
+<section class="hero-modern">
+    <div class="container-modern">
+        <div class="hero-content-modern text-center max-w-3xl mx-auto">
+            <h1 class="hero-title-modern">
+                ✨ Case Converter
             </h1>
-            <p class="hero-subtitle">
-                Convert text to UPPERCASE, lowercase, Title Case, Sentence case, and more instantly.
+            <p class="hero-subtitle-modern">
+                Transform your text instantly with professional case conversion tools. Perfect for developers, writers, and content creators.
             </p>
         </div>
     </div>
 </section>
 
 <!-- Main Tool Section -->
-<section class="main-tool-section">
-    <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
+<section class="py-8 sm:py-12 bg-gray-50 dark:bg-gray-900">
+    <div class="container-modern">
+        <div class="max-w-5xl mx-auto">
             <!-- Input Card -->
-            <div class="tool-card mb-4">
-                <div class="textarea-section">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Enter text to convert
-                    </label>
-                    <div class="textarea-container">
-                        <textarea 
-                            id="case-input"
-                            placeholder="Type or paste your text here to convert case..."
-                            class="main-textarea w-full border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-700 dark:text-white transition-all duration-300 resize-vertical"
-                        ></textarea>
-                        <div class="textarea-overlay">
-                            <button id="clear-case-input" class="clear-btn transition-all duration-200">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+            <div class="tool-card-modern">
+                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    Enter Your Text
+                </label>
+                <div class="textarea-container-modern relative">
+                    <textarea 
+                        id="case-input"
+                        placeholder="Type or paste your text here to convert case..."
+                        class="textarea-modern"
+                    ></textarea>
+                    <button id="clear-case-input" class="clear-btn-modern" aria-label="Clear text">
+                        <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="char-counter-badge">
+                    <span id="input-char-count">0</span> characters
                 </div>
 
                 <!-- Case Conversion Buttons -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-                    <button id="upper-case-btn" class="action-btn bg-red-600 hover:bg-red-700 text-white">
+                <div class="case-grid">
+                    <button id="upper-case-btn" class="btn-modern text-white" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
                         <span>UPPERCASE</span>
                     </button>
-                    <button id="lower-case-btn" class="action-btn bg-blue-600 hover:bg-blue-700 text-white">
+                    <button id="lower-case-btn" class="btn-modern text-white" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
                         <span>lowercase</span>
                     </button>
-                    <button id="title-case-btn" class="action-btn bg-green-600 hover:bg-green-700 text-white">
+                    <button id="title-case-btn" class="btn-modern text-white" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
                         <span>Title Case</span>
                     </button>
-                    <button id="sentence-case-btn" class="action-btn bg-purple-600 hover:bg-purple-700 text-white">
+                    <button id="sentence-case-btn" class="btn-modern text-white" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
                         <span>Sentence case</span>
                     </button>
-                </div>
-
-                <!-- Additional Case Options -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
-                    <button id="camel-case-btn" class="action-btn bg-orange-600 hover:bg-orange-700 text-white">
+                    <button id="camel-case-btn" class="btn-modern text-white" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
                         <span>camelCase</span>
                     </button>
-                    <button id="pascal-case-btn" class="action-btn bg-indigo-600 hover:bg-indigo-700 text-white">
+                    <button id="pascal-case-btn" class="btn-modern text-white" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
                         <span>PascalCase</span>
                     </button>
-                    <button id="kebab-case-btn" class="action-btn bg-teal-600 hover:bg-teal-700 text-white">
+                    <button id="kebab-case-btn" class="btn-modern text-white" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);">
                         <span>kebab-case</span>
+                    </button>
+                    <button id="snake-case-btn" class="btn-modern text-white" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%);">
+                        <span>snake_case</span>
                     </button>
                 </div>
             </div>
 
             <!-- Output Card -->
-            <div class="tool-card">
-                <div class="textarea-section">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Converted text
-                    </label>
-                    <div class="textarea-container">
-                        <textarea 
-                            id="case-output"
-                            placeholder="Converted text will appear here..."
-                            class="main-textarea w-full border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-blue-500 focus:ring-0 dark:bg-gray-700 dark:text-white transition-all duration-300 resize-vertical"
-                            readonly
-                        ></textarea>
-                    </div>
+            <div class="tool-card-modern">
+                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Converted Result
+                </label>
+                <div class="textarea-container-modern relative">
+                    <textarea 
+                        id="case-output"
+                        placeholder="Your converted text will appear here..."
+                        class="textarea-modern"
+                        readonly
+                    ></textarea>
+                </div>
+                <div class="char-counter-badge">
+                    <span id="output-char-count">0</span> characters
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button id="copy-case-output" class="action-btn bg-blue-600 hover:bg-blue-700 text-white">
+                <div class="action-buttons-modern">
+                    <button id="copy-case-output" class="btn-modern text-white" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                         </svg>
                         <span>Copy Result</span>
                     </button>
-                    <button id="download-case-txt" class="action-btn bg-green-600 hover:bg-green-700 text-white">
+                    <button id="download-case-txt" class="btn-modern text-white" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
-                        <span>Download TXT</span>
+                        <span>Download</span>
                     </button>
-                    <button id="swap-case-text" class="action-btn bg-gray-600 hover:bg-gray-700 text-white">
+                    <button id="swap-case-text" class="btn-modern text-white" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
                         </svg>
-                        <span>Swap Input/Output</span>
+                        <span>Swap</span>
                     </button>
                 </div>
             </div>
@@ -119,64 +432,63 @@
 </section>
 
 <!-- Case Types Reference -->
-<section class="py-8">
-    <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Case Conversion Types</h2>
+<section class="py-12 bg-white dark:bg-gray-800">
+    <div class="container-modern">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Case Conversion Types</h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    Choose from multiple case styles for different use cases and platforms
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="case-type-card">
+                    <h3 class="font-bold text-red-800 dark:text-red-300 mb-2 text-lg">UPPERCASE</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Converts all letters to capitals</p>
+                    <code class="case-example-code">HELLO WORLD</code>
+                </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div class="case-example p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                            <h3 class="font-semibold text-red-800 dark:text-red-300 mb-2">UPPERCASE</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Converts all letters to capital letters.</p>
-                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">HELLO WORLD</code>
-                        </div>
-                        
-                        <div class="case-example p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                            <h3 class="font-semibold text-blue-800 dark:text-blue-300 mb-2">lowercase</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Converts all letters to small letters.</p>
-                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">hello world</code>
-                        </div>
-                        
-                        <div class="case-example p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                            <h3 class="font-semibold text-green-800 dark:text-green-300 mb-2">Title Case</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Capitalizes the first letter of each word.</p>
-                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">Hello World</code>
-                        </div>
-                        
-                        <div class="case-example p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                            <h3 class="font-semibold text-purple-800 dark:text-purple-300 mb-2">Sentence case</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Capitalizes only the first letter of sentences.</p>
-                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">Hello world. This is a sentence.</code>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="case-example p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-                            <h3 class="font-semibold text-orange-800 dark:text-orange-300 mb-2">camelCase</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">First word lowercase, subsequent words capitalized, no spaces.</p>
-                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">helloWorld</code>
-                        </div>
-                        
-                        <div class="case-example p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
-                            <h3 class="font-semibold text-indigo-800 dark:text-indigo-300 mb-2">PascalCase</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">All words capitalized, no spaces. Used in programming.</p>
-                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">HelloWorld</code>
-                        </div>
-                        
-                        <div class="case-example p-4 bg-teal-50 dark:bg-teal-900/20 rounded-lg">
-                            <h3 class="font-semibold text-teal-800 dark:text-teal-300 mb-2">kebab-case</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">All lowercase with hyphens instead of spaces.</p>
-                            <code class="text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded">hello-world</code>
-                        </div>
-                        
-                        <div class="case-example p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <h3 class="font-semibold text-gray-800 dark:text-gray-300 mb-2">snake_case</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">All lowercase with underscores instead of spaces.</p>
-                            <code class="text-xs bg-white dark:bg-gray-600 px-2 py-1 rounded">hello_world</code>
-                        </div>
-                    </div>
+                <div class="case-type-card">
+                    <h3 class="font-bold text-blue-800 dark:text-blue-300 mb-2 text-lg">lowercase</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">All letters in lowercase</p>
+                    <code class="case-example-code">hello world</code>
+                </div>
+                
+                <div class="case-type-card">
+                    <h3 class="font-bold text-green-800 dark:text-green-300 mb-2 text-lg">Title Case</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Capitalizes each word</p>
+                    <code class="case-example-code">Hello World</code>
+                </div>
+                
+                <div class="case-type-card">
+                    <h3 class="font-bold text-purple-800 dark:text-purple-300 mb-2 text-lg">Sentence case</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">First letter of sentences</p>
+                    <code class="case-example-code">Hello world.</code>
+                </div>
+                
+                <div class="case-type-card">
+                    <h3 class="font-bold text-orange-800 dark:text-orange-300 mb-2 text-lg">camelCase</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">No spaces, capital words</p>
+                    <code class="case-example-code">helloWorld</code>
+                </div>
+                
+                <div class="case-type-card">
+                    <h3 class="font-bold text-indigo-800 dark:text-indigo-300 mb-2 text-lg">PascalCase</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Like camel, starts capital</p>
+                    <code class="case-example-code">HelloWorld</code>
+                </div>
+                
+                <div class="case-type-card">
+                    <h3 class="font-bold text-teal-800 dark:text-teal-300 mb-2 text-lg">kebab-case</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Hyphens instead of spaces</p>
+                    <code class="case-example-code">hello-world</code>
+                </div>
+                
+                <div class="case-type-card">
+                    <h3 class="font-bold text-gray-800 dark:text-gray-300 mb-2 text-lg">snake_case</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Underscores replace spaces</p>
+                    <code class="case-example-code">hello_world</code>
                 </div>
             </div>
         </div>
@@ -185,69 +497,74 @@
 
 <!-- Use Cases Section -->
 <section class="py-12 bg-gray-50 dark:bg-gray-900">
-    <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">When to Use Different Cases</h2>
+    <div class="container-modern">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">When to Use Different Cases</h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    Each case style has specific use cases across different industries and platforms
+                </p>
+            </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-                    <h3 class="text-lg font-semibold mb-3 text-blue-600 dark:text-blue-400">Programming</h3>
+                <div class="use-case-card" style="border-left-color: #3b82f6;">
+                    <h3 class="text-lg font-bold mb-3 text-blue-600 dark:text-blue-400">💻 Programming</h3>
                     <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>camelCase:</strong> JavaScript variables, functions</li>
-                        <li><strong>PascalCase:</strong> Class names, components</li>
-                        <li><strong>snake_case:</strong> Python variables, database fields</li>
-                        <li><strong>kebab-case:</strong> CSS classes, URLs</li>
-                        <li><strong>UPPERCASE:</strong> Constants, environment variables</li>
+                        <li><strong>camelCase:</strong> JavaScript variables</li>
+                        <li><strong>PascalCase:</strong> Class names</li>
+                        <li><strong>snake_case:</strong> Python functions</li>
+                        <li><strong>kebab-case:</strong> CSS classes</li>
+                        <li><strong>UPPERCASE:</strong> Constants</li>
                     </ul>
                 </div>
                 
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-                    <h3 class="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Writing & Content</h3>
+                <div class="use-case-card" style="border-left-color: #10b981;">
+                    <h3 class="text-lg font-bold mb-3 text-green-600 dark:text-green-400">✍️ Content Writing</h3>
                     <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>Title Case:</strong> Headlines, book titles</li>
-                        <li><strong>Sentence case:</strong> Regular paragraphs, descriptions</li>
-                        <li><strong>UPPERCASE:</strong> Emphasis, warnings, acronyms</li>
-                        <li><strong>lowercase:</strong> Informal writing, poetry</li>
+                        <li><strong>Title Case:</strong> Headlines, titles</li>
+                        <li><strong>Sentence case:</strong> Body text</li>
+                        <li><strong>UPPERCASE:</strong> Emphasis, CTAs</li>
+                        <li><strong>lowercase:</strong> Modern aesthetics</li>
                     </ul>
                 </div>
                 
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-                    <h3 class="text-lg font-semibold mb-3 text-purple-600 dark:text-purple-400">Design & UI</h3>
+                <div class="use-case-card" style="border-left-color: #8b5cf6;">
+                    <h3 class="text-lg font-bold mb-3 text-purple-600 dark:text-purple-400">🎨 Design & UI</h3>
                     <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>UPPERCASE:</strong> Buttons, navigation, labels</li>
-                        <li><strong>Title Case:</strong> Menu items, form labels</li>
-                        <li><strong>Sentence case:</strong> Body text, descriptions</li>
-                        <li><strong>lowercase:</strong> Modern minimalist design</li>
+                        <li><strong>UPPERCASE:</strong> Button labels</li>
+                        <li><strong>Title Case:</strong> Navigation menus</li>
+                        <li><strong>Sentence case:</strong> Descriptions</li>
+                        <li><strong>lowercase:</strong> Minimalist design</li>
                     </ul>
                 </div>
                 
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-                    <h3 class="text-lg font-semibold mb-3 text-orange-600 dark:text-orange-400">SEO & URLs</h3>
+                <div class="use-case-card" style="border-left-color: #f59e0b;">
+                    <h3 class="text-lg font-bold mb-3 text-orange-600 dark:text-orange-400">🔍 SEO & URLs</h3>
                     <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>kebab-case:</strong> URL slugs, file names</li>
-                        <li><strong>lowercase:</strong> Domain names, email addresses</li>
-                        <li><strong>Title Case:</strong> Page titles, meta descriptions</li>
-                        <li><strong>Sentence case:</strong> Blog post titles</li>
+                        <li><strong>kebab-case:</strong> URL slugs</li>
+                        <li><strong>lowercase:</strong> Domain names</li>
+                        <li><strong>Title Case:</strong> Page titles</li>
+                        <li><strong>Sentence case:</strong> Meta descriptions</li>
                     </ul>
                 </div>
                 
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-                    <h3 class="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Social Media</h3>
+                <div class="use-case-card" style="border-left-color: #ef4444;">
+                    <h3 class="text-lg font-bold mb-3 text-red-600 dark:text-red-400">📱 Social Media</h3>
                     <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
                         <li><strong>Title Case:</strong> Professional posts</li>
-                        <li><strong>Sentence case:</strong> Casual posts, stories</li>
-                        <li><strong>UPPERCASE:</strong> Emphasis, calls-to-action</li>
-                        <li><strong>lowercase:</strong> Aesthetic posts, poetry</li>
+                        <li><strong>Sentence case:</strong> Casual content</li>
+                        <li><strong>UPPERCASE:</strong> Announcements</li>
+                        <li><strong>lowercase:</strong> Aesthetic posts</li>
                     </ul>
                 </div>
                 
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-                    <h3 class="text-lg font-semibold mb-3 text-teal-600 dark:text-teal-400">Data Processing</h3>
+                <div class="use-case-card" style="border-left-color: #14b8a6;">
+                    <h3 class="text-lg font-bold mb-3 text-teal-600 dark:text-teal-400">📊 Data Processing</h3>
                     <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>lowercase:</strong> Data normalization</li>
-                        <li><strong>UPPERCASE:</strong> Data standardization</li>
-                        <li><strong>Title Case:</strong> Names, addresses</li>
-                        <li><strong>snake_case:</strong> Database operations</li>
+                        <li><strong>lowercase:</strong> Normalization</li>
+                        <li><strong>UPPERCASE:</strong> Standardization</li>
+                        <li><strong>Title Case:</strong> Names formatting</li>
+                        <li><strong>snake_case:</strong> Database fields</li>
                     </ul>
                 </div>
             </div>
@@ -261,115 +578,77 @@
 document.addEventListener('DOMContentLoaded', function() {
     const inputText = document.getElementById('case-input');
     const outputText = document.getElementById('case-output');
-    const toast = new window.ToastManager();
+    const inputCharCount = document.getElementById('input-char-count');
+    const outputCharCount = document.getElementById('output-char-count');
+    const toast = window.ToastManager ? new window.ToastManager() : null;
+
+    function showToast(message, type = 'success') {
+        if (toast) {
+            toast.show(message, type);
+        }
+    }
+
+    function updateCharCount() {
+        inputCharCount.textContent = inputText.value.length.toLocaleString();
+        outputCharCount.textContent = outputText.value.length.toLocaleString();
+    }
+
+    inputText.addEventListener('input', updateCharCount);
 
     // Case conversion functions
-    function toUpperCase(text) {
-        return text.toUpperCase();
-    }
+    const conversions = {
+        upper: text => text.toUpperCase(),
+        lower: text => text.toLowerCase(),
+        title: text => text.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()),
+        sentence: text => text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase()),
+        camel: text => text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase()),
+        pascal: text => text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase()).replace(/^(.)/, (match, chr) => chr.toUpperCase()),
+        kebab: text => text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-+|-+$/g, ''),
+        snake: text => text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_+|_+$/g, '')
+    };
 
-    function toLowerCase(text) {
-        return text.toLowerCase();
-    }
-
-    function toTitleCase(text) {
-        return text.replace(/\w\S*/g, (txt) => {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        });
-    }
-
-    function toSentenceCase(text) {
-        return text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => {
-            return c.toUpperCase();
-        });
-    }
-
-    function toCamelCase(text) {
-        return text
-            .toLowerCase()
-            .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
-    }
-
-    function toPascalCase(text) {
-        return text
-            .toLowerCase()
-            .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase())
-            .replace(/^(.)/, (match, chr) => chr.toUpperCase());
-    }
-
-    function toKebabCase(text) {
-        return text
-            .toLowerCase()
-            .replace(/[^a-zA-Z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
-    }
-
-    function toSnakeCase(text) {
-        return text
-            .toLowerCase()
-            .replace(/[^a-zA-Z0-9]+/g, '_')
-            .replace(/^_+|_+$/g, '');
+    function convertCase(type) {
+        const text = inputText.value;
+        if (!text) {
+            showToast('Please enter some text first', 'warning');
+            return;
+        }
+        outputText.value = conversions[type](text);
+        updateCharCount();
+        showToast(`Converted to ${type} case`, 'success');
     }
 
     // Button event listeners
-    document.getElementById('upper-case-btn').addEventListener('click', () => {
-        outputText.value = toUpperCase(inputText.value);
-        toast.show('Converted to UPPERCASE', 'success');
-    });
-
-    document.getElementById('lower-case-btn').addEventListener('click', () => {
-        outputText.value = toLowerCase(inputText.value);
-        toast.show('Converted to lowercase', 'success');
-    });
-
-    document.getElementById('title-case-btn').addEventListener('click', () => {
-        outputText.value = toTitleCase(inputText.value);
-        toast.show('Converted to Title Case', 'success');
-    });
-
-    document.getElementById('sentence-case-btn').addEventListener('click', () => {
-        outputText.value = toSentenceCase(inputText.value);
-        toast.show('Converted to Sentence case', 'success');
-    });
-
-    document.getElementById('camel-case-btn').addEventListener('click', () => {
-        outputText.value = toCamelCase(inputText.value);
-        toast.show('Converted to camelCase', 'success');
-    });
-
-    document.getElementById('pascal-case-btn').addEventListener('click', () => {
-        outputText.value = toPascalCase(inputText.value);
-        toast.show('Converted to PascalCase', 'success');
-    });
-
-    document.getElementById('kebab-case-btn').addEventListener('click', () => {
-        outputText.value = toKebabCase(inputText.value);
-        toast.show('Converted to kebab-case', 'success');
-    });
+    document.getElementById('upper-case-btn').addEventListener('click', () => convertCase('upper'));
+    document.getElementById('lower-case-btn').addEventListener('click', () => convertCase('lower'));
+    document.getElementById('title-case-btn').addEventListener('click', () => convertCase('title'));
+    document.getElementById('sentence-case-btn').addEventListener('click', () => convertCase('sentence'));
+    document.getElementById('camel-case-btn').addEventListener('click', () => convertCase('camel'));
+    document.getElementById('pascal-case-btn').addEventListener('click', () => convertCase('pascal'));
+    document.getElementById('kebab-case-btn').addEventListener('click', () => convertCase('kebab'));
+    document.getElementById('snake-case-btn').addEventListener('click', () => convertCase('snake'));
 
     // Utility buttons
     document.getElementById('copy-case-output').addEventListener('click', async () => {
         const text = outputText.value;
         if (!text) {
-            toast.show('No converted text to copy.', 'warning');
+            showToast('No converted text to copy', 'warning');
             return;
         }
-
         try {
             await navigator.clipboard.writeText(text);
-            toast.show('Converted text copied!', 'success');
+            showToast('Text copied to clipboard!', 'success');
         } catch (error) {
-            toast.show('Failed to copy text.', 'error');
+            showToast('Failed to copy text', 'error');
         }
     });
 
     document.getElementById('download-case-txt').addEventListener('click', () => {
         const text = outputText.value;
         if (!text) {
-            toast.show('No converted text to download.', 'warning');
+            showToast('No converted text to download', 'warning');
             return;
         }
-
         const blob = new Blob([text], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -379,64 +658,36 @@ document.addEventListener('DOMContentLoaded', function() {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        
-        toast.show('Converted text downloaded!', 'success');
+        showToast('File downloaded successfully!', 'success');
     });
 
     document.getElementById('swap-case-text').addEventListener('click', () => {
-        const inputValue = inputText.value;
-        const outputValue = outputText.value;
-        
-        inputText.value = outputValue;
-        outputText.value = inputValue;
-        
-        toast.show('Input and output swapped!', 'info');
+        const temp = inputText.value;
+        inputText.value = outputText.value;
+        outputText.value = temp;
+        updateCharCount();
+        showToast('Input and output swapped!', 'info');
     });
 
     document.getElementById('clear-case-input').addEventListener('click', () => {
         inputText.value = '';
         outputText.value = '';
-        toast.show('Text cleared.', 'info');
+        updateCharCount();
+        showToast('Text cleared', 'info');
     });
 
     // Auto-resize textareas
-    [inputText, outputText].forEach(textarea => {
-        textarea.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 300) + 'px';
-        });
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 500) + 'px';
+    }
+
+    inputText.addEventListener('input', function() {
+        autoResize(this);
     });
 
-    // Add snake_case button functionality (missing from HTML but referenced in content)
-    const additionalCaseButtons = document.createElement('div');
-    additionalCaseButtons.className = 'grid grid-cols-1 md:grid-cols-2 gap-3 mt-3';
-    additionalCaseButtons.innerHTML = `
-        <button id="snake-case-btn" class="action-btn bg-gray-600 hover:bg-gray-700 text-white">
-            <span>snake_case</span>
-        </button>
-        <button id="toggle-case-btn" class="action-btn bg-pink-600 hover:bg-pink-700 text-white">
-            <span>tOGGLE cASE</span>
-        </button>
-    `;
-    
-    // Insert after the existing button grid
-    const existingButtonGrid = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3');
-    if (existingButtonGrid) {
-        existingButtonGrid.parentNode.insertBefore(additionalCaseButtons, existingButtonGrid.nextSibling);
-        
-        // Add event listeners for new buttons
-        document.getElementById('snake-case-btn').addEventListener('click', () => {
-            outputText.value = toSnakeCase(inputText.value);
-            toast.show('Converted to snake_case', 'success');
-        });
-        
-        document.getElementById('toggle-case-btn').addEventListener('click', () => {
-            outputText.value = inputText.value.split('').map(char => 
-                char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
-            ).join('');
-            toast.show('Case toggled', 'success');
-        });
-    }
+    // Initial setup
+    updateCharCount();
 });
 </script>
 {% endblock %}

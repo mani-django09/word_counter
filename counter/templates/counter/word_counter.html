@@ -1,194 +1,167 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
-{% endblock %}
-
 {% block content %}
-<!-- Compact Hero Section -->
-<section class="hero-section">
-    <div class="container mx-auto px-4 py-6">
-        <div class="hero-content text-center max-w-3xl mx-auto">
-            <h1 class="hero-title">
-                WordCounter3
+<!-- Hero Section - Compact & Clean -->
+<section class="py-8 sm:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-8">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+                Free Online Word Counter
             </h1>
-            <p class="hero-subtitle">
+            <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300">
                 Count words, characters, and analyze your text instantly. Professional tools for writers and content creators.
             </p>
         </div>
     </div>
 </section>
 
-<!-- Main Tool Section with Side Layout -->
-<section class="main-tool-section">
-    <div class="container mx-auto px-4">
-        <div class="max-w-7xl mx-auto">
-            <div class="tool-card">
-                <div class="side-layout">
-                    <!-- Left Side - Textarea and File Upload -->
-                    <div class="textarea-section">
-                        <div class="textarea-container">
-                            <textarea 
-                                id="main-textarea"
-                                placeholder="Start typing or paste your text here to get instant word count and analysis..."
-                                class="textarea-side"
-                            ></textarea>
-                            <div class="textarea-overlay">
-                                <button id="clear-text" class="clear-btn">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                    </svg>
-                                </button>
-                            </div>
+<!-- Main Tool Section -->
+<section class="pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="grid lg:grid-cols-[1fr_320px] gap-0">
+                <!-- Left: Textarea -->
+                <div class="p-4 sm:p-6">
+                    <div class="relative">
+                        <textarea 
+                            id="main-textarea"
+                            placeholder="Start typing or paste your text here to get instant word count and analysis..."
+                            class="w-full h-[400px] sm:h-[500px] p-4 text-base bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-colors"
+                        ></textarea>
+                        <button id="clear-text" class="absolute top-3 right-3 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors opacity-0 pointer-events-none" aria-label="Clear text">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- File Upload -->
+                    <div class="mt-4">
+                        <input type="file" id="file-input" class="hidden" accept=".txt,.docx,.pdf">
+                        <label for="file-input" class="cursor-pointer inline-flex items-center px-4 py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors text-sm font-medium">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                            Upload File (TXT, DOCX, PDF)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Right: Results Sidebar -->
+                <div class="bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-gray-700">
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg p-4 text-center border border-gray-200 dark:border-gray-700">
+                            <div class="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400" id="word-count">0</div>
+                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Words</div>
                         </div>
-                        
-                        <!-- File Upload -->
-                        <div class="file-upload-section">
-                            <div class="file-drop-zone">
-                                <input type="file" id="file-input" class="hidden" accept=".txt,.docx,.pdf">
-                                <label for="file-input" class="cursor-pointer block">
-                                    <div class="flex flex-col items-center">
-                                        <svg class="w-6 h-6 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                        </svg>
-                                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">
-                                            Drop files or click to upload
-                                        </span>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                            TXT, DOCX, PDF (max 5MB)
-                                        </span>
-                                    </div>
-                                </label>
+                        <div class="bg-white dark:bg-gray-800 rounded-lg p-4 text-center border border-gray-200 dark:border-gray-700">
+                            <div class="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400" id="character-count">0</div>
+                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Characters</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 rounded-lg p-4 text-center border border-gray-200 dark:border-gray-700">
+                            <div class="text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400" id="sentence-count">0</div>
+                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Sentences</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 rounded-lg p-4 text-center border border-gray-200 dark:border-gray-700">
+                            <div class="text-2xl sm:text-3xl font-bold text-orange-600 dark:text-orange-400" id="paragraph-count">0</div>
+                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Paragraphs</div>
+                        </div>
+                    </div>
+
+                    <!-- Reading Time -->
+                    <div id="reading-time-card" class="bg-white dark:bg-gray-800 rounded-lg p-4 mb-3 border border-gray-200 dark:border-gray-700 hidden">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Reading Time
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Slow:</span>
+                                <span id="reading-time-slow" class="font-medium text-gray-900 dark:text-white">0 min</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Average:</span>
+                                <span id="reading-time-avg" class="font-medium text-gray-900 dark:text-white">0 min</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Fast:</span>
+                                <span id="reading-time-fast" class="font-medium text-gray-900 dark:text-white">0 min</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right Side - Results Sidebar -->
-                    <div class="results-sidebar">
-                        <!-- Main Stats Card -->
-                        <div class="results-card">
-                            <div class="mini-stats-grid">
-                                <div class="mini-stat-item">
-                                    <div class="mini-stat-number text-blue-600 dark:text-blue-400" id="word-count">0</div>
-                                    <div class="mini-stat-label">Words</div>
-                                </div>
-                                <div class="mini-stat-item">
-                                    <div class="mini-stat-number text-green-600 dark:text-green-400" id="character-count">0</div>
-                                    <div class="mini-stat-label">Characters</div>
-                                </div>
-                                <div class="mini-stat-item">
-                                    <div class="mini-stat-number text-purple-600 dark:text-purple-400" id="sentence-count">0</div>
-                                    <div class="mini-stat-label">Sentences</div>
-                                </div>
-                                <div class="mini-stat-item">
-                                    <div class="mini-stat-number text-orange-600 dark:text-orange-400" id="paragraph-count">0</div>
-                                    <div class="mini-stat-label">Paragraphs</div>
-                                </div>
+                    <!-- Speaking Time -->
+                    <div id="speaking-time-card" class="bg-white dark:bg-gray-800 rounded-lg p-4 mb-3 border border-gray-200 dark:border-gray-700 hidden">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                            </svg>
+                            Speaking Time
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Slow:</span>
+                                <span id="speaking-time-slow" class="font-medium text-gray-900 dark:text-white">0 min</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Average:</span>
+                                <span id="speaking-time-avg" class="font-medium text-gray-900 dark:text-white">0 min</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Fast:</span>
+                                <span id="speaking-time-fast" class="font-medium text-gray-900 dark:text-white">0 min</span>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Reading Time Card -->
-                        <div class="results-card" id="reading-time-card" style="display: none;">
-                            <div class="sidebar-section">
-                                <h3 class="sidebar-title">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                    Reading Time
-                                </h3>
-                                <div class="sidebar-content space-y-2">
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">Slow:</span>
-                                        <span id="reading-time-slow" class="font-medium">0 min</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">Average:</span>
-                                        <span id="reading-time-avg" class="font-medium">0 min</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">Fast:</span>
-                                        <span id="reading-time-fast" class="font-medium">0 min</span>
-                                    </div>
-                                </div>
+                    <!-- Details -->
+                    <div id="details-card" class="bg-white dark:bg-gray-800 rounded-lg p-4 mb-3 border border-gray-200 dark:border-gray-700 hidden">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            Details
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">No spaces:</span>
+                                <span id="character-count-no-spaces" class="font-medium text-gray-900 dark:text-white">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Lines:</span>
+                                <span id="line-count" class="font-medium text-gray-900 dark:text-white">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Avg/sentence:</span>
+                                <span id="avg-words-sentence" class="font-medium text-gray-900 dark:text-white">0</span>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Speaking Time Card -->
-                        <div class="results-card" id="speaking-time-card" style="display: none;">
-                            <div class="sidebar-section">
-                                <h3 class="sidebar-title">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
-                                    </svg>
-                                    Speaking Time
-                                </h3>
-                                <div class="sidebar-content space-y-2">
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">Slow:</span>
-                                        <span id="speaking-time-slow" class="font-medium">0 min</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">Average:</span>
-                                        <span id="speaking-time-avg" class="font-medium">0 min</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">Fast:</span>
-                                        <span id="speaking-time-fast" class="font-medium">0 min</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Details Card -->
-                        <div class="results-card" id="details-card" style="display: none;">
-                            <div class="sidebar-section">
-                                <h3 class="sidebar-title">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                    </svg>
-                                    Details
-                                </h3>
-                                <div class="sidebar-content space-y-2">
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">No spaces:</span>
-                                        <span id="character-count-no-spaces" class="font-medium">0</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">Lines:</span>
-                                        <span id="line-count" class="font-medium">0</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600 dark:text-gray-300">Avg/sentence:</span>
-                                        <span id="avg-words-sentence" class="font-medium">0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons Card -->
-                        <div class="results-card">
-                            <div class="compact-action-buttons">
-                                <button id="copy-text-btn" class="compact-btn bg-blue-600 hover:bg-blue-700 text-white">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                                    </svg>
-                                    <span>Copy Text</span>
-                                </button>
-                                <button id="download-txt-btn" class="compact-btn bg-green-600 hover:bg-green-700 text-white">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    <span>Download TXT</span>
-                                </button>
-                                <button id="print-btn" class="compact-btn bg-gray-600 hover:bg-gray-700 text-white">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
-                                    </svg>
-                                    <span>Print</span>
-                                </button>
-                            </div>
-                        </div>
+                    <!-- Action Buttons -->
+                    <div class="grid grid-cols-1 gap-2">
+                        <button id="copy-text-btn" class="w-full px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Copy Text
+                        </button>
+                        <button id="download-txt-btn" class="w-full px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm font-medium flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Download TXT
+                        </button>
+                        <button id="print-btn" class="w-full px-4 py-2.5 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors text-sm font-medium flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                            </svg>
+                            Print
+                        </button>
                     </div>
                 </div>
             </div>
@@ -196,179 +169,541 @@
     </div>
 </section>
 
-<!-- Keyword Density Section -->
-<section id="keyword-section" class="keyword-section hidden">
-    <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Top Keywords</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th class="text-left py-2 px-3 font-semibold text-gray-900 dark:text-white">Word</th>
-                                <th class="text-left py-2 px-3 font-semibold text-gray-900 dark:text-white">Count</th>
-                                <th class="text-left py-2 px-3 font-semibold text-gray-900 dark:text-white">Density</th>
-                            </tr>
-                        </thead>
-                        <tbody id="keyword-table" class="divide-y divide-gray-200 dark:divide-gray-700">
-                            <!-- Keywords populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
+<!-- Keyword Density -->
+<section id="keyword-section" class="py-8 hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Top Keywords</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-200 dark:border-gray-700">
+                            <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">Word</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">Count</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">Density</th>
+                        </tr>
+                    </thead>
+                    <tbody id="keyword-table" class="divide-y divide-gray-200 dark:divide-gray-700">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Other Tools Section -->
-<section class="other-tools-section">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
+<!-- Other Tools -->
+<section class="py-12 bg-gray-50 dark:bg-gray-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3">
                 More Writing Tools
             </h2>
-            <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Enhance your writing with our comprehensive suite of text analysis tools.
+            <p class="text-base text-gray-600 dark:text-gray-300">
+                Enhance your writing with our comprehensive suite of text analysis tools
             </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            <a href="{% url 'counter:character_counter' %}" class="tool-link-card group">
-                <div class="tool-card bg-white dark:bg-gray-800 rounded-lg p-5 shadow-lg">
-                    <div class="tool-icon w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-3">
-                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Character Counter</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Count characters with and without spaces for social media limits.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a href="{% url 'counter:character_counter' %}" class="group bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500">
+                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
                 </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Character Counter</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Count characters with and without spaces for social media limits</p>
             </a>
 
-            <a href="{% url 'counter:reading_time' %}" class="tool-link-card group">
-                <div class="tool-card bg-white dark:bg-gray-800 rounded-lg p-5 shadow-lg">
-                    <div class="tool-icon w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-3">
-                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Reading Time</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Calculate reading and speaking time for your content.</p>
+            <a href="{% url 'counter:reading_time' %}" class="group bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700 hover:border-green-500 dark:hover:border-green-500">
+                <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
                 </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Reading Time</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Calculate reading and speaking time for your content</p>
             </a>
 
-            <a href="{% url 'counter:space_cleaner' %}" class="tool-link-card group">
-                <div class="tool-card bg-white dark:bg-gray-800 rounded-lg p-5 shadow-lg">
-                    <div class="tool-icon w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-3">
-                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Text Cleaner</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Remove extra spaces and clean up text formatting.</p>
+            <a href="{% url 'counter:space_cleaner' %}" class="group bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500">
+                <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
                 </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Text Cleaner</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Remove extra spaces and clean up text formatting</p>
             </a>
 
-            <a href="{% url 'counter:case_converter' %}" class="tool-link-card group">
-                <div class="tool-card bg-white dark:bg-gray-800 rounded-lg p-5 shadow-lg">
-                    <div class="tool-icon w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mb-3">
-                        <svg class="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Case Converter</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Convert text to different cases instantly.</p>
+            <a href="{% url 'counter:case_converter' %}" class="group bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700 hover:border-orange-500 dark:hover:border-orange-500">
+                <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                    </svg>
                 </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Case Converter</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Convert text to different cases instantly</p>
             </a>
         </div>
     </div>
 </section>
 
-<!-- FAQ Section -->
-<section class="faq-section">
-    <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-8">
-                Frequently Asked Questions
-            </h2>
-            
-            <div class="space-y-3">
-                <div class="faq-item">
-                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">How accurate is this word counter?</h3>
-                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                    </button>
-                    <div class="faq-answer">
-                        <p class="text-gray-600 dark:text-gray-300">Our word counter uses industry-standard algorithms, providing the same accuracy as Microsoft Word and Google Docs. It counts words by identifying text separated by spaces and punctuation.</p>
-                    </div>
+<!-- FAQ -->
+<section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 dark:text-white mb-10">
+            Frequently Asked Questions
+        </h2>
+        
+        <div class="space-y-4">
+            <details class="group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">How accurate is this word counter?</h3>
+                    <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-4 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    Our word counter uses industry-standard algorithms, providing the same accuracy as Microsoft Word and Google Docs. It counts words by identifying text separated by spaces and punctuation.
                 </div>
+            </details>
 
-                <div class="faq-item">
-                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">Is my text stored anywhere?</h3>
-                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                    </button>
-                    <div class="faq-answer">
-                        <p class="text-gray-600 dark:text-gray-300">No, your text is completely private. All analysis happens locally in your browser. We don't store, save, or transmit your content to any servers.</p>
-                    </div>
+            <details class="group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">Is my text stored anywhere?</h3>
+                    <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-4 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    No, your text is completely private. All analysis happens locally in your browser. We don't store, save, or transmit your content to any servers.
                 </div>
+            </details>
 
-                <div class="faq-item">
-                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">What file formats are supported?</h3>
-                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                    </button>
-                    <div class="faq-answer">
-                        <p class="text-gray-600 dark:text-gray-300">You can upload TXT, DOCX, and PDF files up to 5MB. Text is extracted and analyzed instantly.</p>
-                    </div>
+            <details class="group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">What file formats are supported?</h3>
+                    <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-4 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    You can upload TXT, DOCX, and PDF files up to 5MB. Text is extracted and analyzed instantly.
                 </div>
+            </details>
 
-                <div class="faq-item">
-                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">How is reading time calculated?</h3>
-                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                    </button>
-                    <div class="faq-answer">
-                        <p class="text-gray-600 dark:text-gray-300">Reading time is calculated based on average reading speeds: slow readers at 125 words per minute, average readers at 225 WPM, and fast readers at 350 WPM.</p>
-                    </div>
+            <details class="group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">How is reading time calculated?</h3>
+                    <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-4 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    Reading time is calculated based on average reading speeds: slow readers at 125 words per minute, average readers at 225 WPM, and fast readers at 350 WPM.
                 </div>
+            </details>
 
-                <div class="faq-item">
-                    <button class="faq-question w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">Can I use this on mobile?</h3>
-                            <svg class="faq-icon w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                    </button>
-                    <div class="faq-answer">
-                        <p class="text-gray-600 dark:text-gray-300">Yes! Our word counter is fully responsive and works perfectly on smartphones, tablets, and desktop computers. The interface adapts to your screen size.</p>
-                    </div>
+            <details class="group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">Can I use this on mobile?</h3>
+                    <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-4 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    Yes! Our word counter is fully responsive and works perfectly on smartphones, tablets, and desktop computers. The interface adapts to your screen size.
                 </div>
-            </div>
+            </details>
         </div>
     </div>
 </section>
 {% endblock %}
 
 {% block extra_scripts %}
-<script src="{% static 'js/homepage.js' %}"></script>
+<script>
+// Word counter functionality
+(function() {
+    const textarea = document.getElementById('main-textarea');
+    const clearBtn = document.getElementById('clear-text');
+    const fileInput = document.getElementById('file-input');
+    
+    // Counter elements
+    const wordCount = document.getElementById('word-count');
+    const charCount = document.getElementById('character-count');
+    const sentenceCount = document.getElementById('sentence-count');
+    const paragraphCount = document.getElementById('paragraph-count');
+    const charCountNoSpaces = document.getElementById('character-count-no-spaces');
+    const lineCount = document.getElementById('line-count');
+    const avgWordsPerSentence = document.getElementById('avg-words-sentence');
+    
+    // Time cards
+    const readingTimeCard = document.getElementById('reading-time-card');
+    const speakingTimeCard = document.getElementById('speaking-time-card');
+    const detailsCard = document.getElementById('details-card');
+    const keywordSection = document.getElementById('keyword-section');
+    
+    // Reading time elements
+    const readingTimeSlow = document.getElementById('reading-time-slow');
+    const readingTimeAvg = document.getElementById('reading-time-avg');
+    const readingTimeFast = document.getElementById('reading-time-fast');
+    
+    // Speaking time elements
+    const speakingTimeSlow = document.getElementById('speaking-time-slow');
+    const speakingTimeAvg = document.getElementById('speaking-time-avg');
+    const speakingTimeFast = document.getElementById('speaking-time-fast');
+    
+    // Action buttons
+    const copyBtn = document.getElementById('copy-text-btn');
+    const downloadBtn = document.getElementById('download-txt-btn');
+    const printBtn = document.getElementById('print-btn');
+    
+    // Calculate statistics
+    function calculateStats(text) {
+        const trimmedText = text.trim();
+        
+        if (!trimmedText) {
+            return {
+                words: 0,
+                characters: 0,
+                sentences: 0,
+                paragraphs: 0,
+                charactersNoSpaces: 0,
+                lines: 0,
+                avgWordsPerSentence: 0
+            };
+        }
+        
+        // Word count
+        const words = trimmedText.split(/\s+/).filter(word => word.length > 0).length;
+        
+        // Character count
+        const characters = text.length;
+        const charactersNoSpaces = text.replace(/\s/g, '').length;
+        
+        // Sentence count
+        const sentences = trimmedText.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+        
+        // Paragraph count
+        const paragraphs = trimmedText.split(/\n\n+/).filter(p => p.trim().length > 0).length;
+        
+        // Line count
+        const lines = text.split(/\n/).length;
+        
+        // Average words per sentence
+        const avgWordsPerSentence = sentences > 0 ? Math.round(words / sentences) : 0;
+        
+        return {
+            words,
+            characters,
+            sentences,
+            paragraphs,
+            charactersNoSpaces,
+            lines,
+            avgWordsPerSentence
+        };
+    }
+    
+    // Calculate reading time
+    function calculateReadingTime(words) {
+        const slow = Math.ceil(words / 125); // 125 WPM
+        const avg = Math.ceil(words / 225);  // 225 WPM
+        const fast = Math.ceil(words / 350); // 350 WPM
+        
+        return {
+            slow: slow || 0,
+            avg: avg || 0,
+            fast: fast || 0
+        };
+    }
+    
+    // Calculate speaking time
+    function calculateSpeakingTime(words) {
+        const slow = Math.ceil(words / 100);  // 100 WPM
+        const avg = Math.ceil(words / 150);   // 150 WPM
+        const fast = Math.ceil(words / 200);  // 200 WPM
+        
+        return {
+            slow: slow || 0,
+            avg: avg || 0,
+            fast: fast || 0
+        };
+    }
+    
+    // Update display
+    function updateStats() {
+        const text = textarea.value;
+        const stats = calculateStats(text);
+        
+        // Update counters with animation
+        wordCount.textContent = stats.words.toLocaleString();
+        charCount.textContent = stats.characters.toLocaleString();
+        sentenceCount.textContent = stats.sentences.toLocaleString();
+        paragraphCount.textContent = stats.paragraphs.toLocaleString();
+        charCountNoSpaces.textContent = stats.charactersNoSpaces.toLocaleString();
+        lineCount.textContent = stats.lines.toLocaleString();
+        avgWordsPerSentence.textContent = stats.avgWordsPerSentence;
+        
+        // Show/hide clear button
+        if (text.length > 0) {
+            clearBtn.classList.remove('opacity-0', 'pointer-events-none');
+        } else {
+            clearBtn.classList.add('opacity-0', 'pointer-events-none');
+        }
+        
+        // Update reading time
+        if (stats.words > 0) {
+            const readingTime = calculateReadingTime(stats.words);
+            readingTimeSlow.textContent = `${readingTime.slow} min`;
+            readingTimeAvg.textContent = `${readingTime.avg} min`;
+            readingTimeFast.textContent = `${readingTime.fast} min`;
+            readingTimeCard.classList.remove('hidden');
+            
+            const speakingTime = calculateSpeakingTime(stats.words);
+            speakingTimeSlow.textContent = `${speakingTime.slow} min`;
+            speakingTimeAvg.textContent = `${speakingTime.avg} min`;
+            speakingTimeFast.textContent = `${speakingTime.fast} min`;
+            speakingTimeCard.classList.remove('hidden');
+            
+            detailsCard.classList.remove('hidden');
+            
+            // Enable buttons
+            copyBtn.disabled = false;
+            downloadBtn.disabled = false;
+            printBtn.disabled = false;
+            
+            // Show keyword density for longer texts
+            if (stats.words >= 50) {
+                updateKeywordDensity(text, stats.words);
+                keywordSection.classList.remove('hidden');
+            } else {
+                keywordSection.classList.add('hidden');
+            }
+        } else {
+            readingTimeCard.classList.add('hidden');
+            speakingTimeCard.classList.add('hidden');
+            detailsCard.classList.add('hidden');
+            keywordSection.classList.add('hidden');
+            
+            // Disable buttons
+            copyBtn.disabled = true;
+            downloadBtn.disabled = true;
+            printBtn.disabled = true;
+        }
+    }
+    
+    // Update keyword density
+    function updateKeywordDensity(text, totalWords) {
+        const words = text.toLowerCase()
+            .replace(/[^\w\s]/g, '')
+            .split(/\s+/)
+            .filter(word => word.length > 3); // Only words longer than 3 chars
+        
+        const wordFreq = {};
+        words.forEach(word => {
+            wordFreq[word] = (wordFreq[word] || 0) + 1;
+        });
+        
+        const sortedWords = Object.entries(wordFreq)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10);
+        
+        const keywordTable = document.getElementById('keyword-table');
+        keywordTable.innerHTML = sortedWords.map(([word, count]) => {
+            const density = ((count / totalWords) * 100).toFixed(2);
+            return `
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td class="py-3 px-4 text-gray-900 dark:text-white">${word}</td>
+                    <td class="py-3 px-4 text-gray-600 dark:text-gray-400">${count}</td>
+                    <td class="py-3 px-4 text-gray-600 dark:text-gray-400">${density}%</td>
+                </tr>
+            `;
+        }).join('');
+    }
+    
+    // Event listeners
+    textarea.addEventListener('input', updateStats);
+    
+    clearBtn.addEventListener('click', () => {
+        textarea.value = '';
+        updateStats();
+        textarea.focus();
+    });
+    
+    // Copy text
+    copyBtn.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(textarea.value);
+            window.showToast('Text copied to clipboard!', 'success');
+        } catch (err) {
+            window.showToast('Failed to copy text', 'error');
+        }
+    });
+    
+    // Download text
+    downloadBtn.addEventListener('click', () => {
+        const text = textarea.value;
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `wordcounter3_${Date.now()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        window.showToast('File downloaded successfully!', 'success');
+    });
+    
+    // Print text
+    printBtn.addEventListener('click', () => {
+        const printWindow = window.open('', '', 'height=600,width=800');
+        printWindow.document.write('<html><head><title>Print Text - WordCounter3</title>');
+        printWindow.document.write('<style>body{font-family:Arial,sans-serif;padding:20px;line-height:1.6;max-width:800px;margin:0 auto;}pre{white-space:pre-wrap;word-wrap:break-word;}</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write('<h1>WordCounter3 - Text Document</h1>');
+        printWindow.document.write('<hr>');
+        printWindow.document.write('<pre>' + textarea.value + '</pre>');
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        setTimeout(() => {
+            printWindow.print();
+        }, 250);
+    });
+    
+    // File upload
+    fileInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        if (file.size > 5 * 1024 * 1024) {
+            window.showToast('File size must be less than 5MB', 'error');
+            fileInput.value = '';
+            return;
+        }
+        
+        const fileType = file.name.split('.').pop().toLowerCase();
+        
+        if (fileType === 'txt') {
+            try {
+                const text = await file.text();
+                textarea.value = text;
+                updateStats();
+                window.showToast('File loaded successfully!', 'success');
+            } catch (err) {
+                window.showToast('Failed to read file', 'error');
+            }
+        } else if (fileType === 'docx' || fileType === 'pdf') {
+            window.showToast('DOCX and PDF support coming soon! Please use TXT files for now.', 'info');
+        } else {
+            window.showToast('Unsupported file format. Please use TXT, DOCX, or PDF files.', 'error');
+        }
+        
+        fileInput.value = '';
+    });
+    
+    // Drag and drop support
+    const textareaContainer = textarea.parentElement;
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        textareaContainer.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+        textareaContainer.addEventListener(eventName, () => {
+            textareaContainer.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+        });
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        textareaContainer.addEventListener(eventName, () => {
+            textareaContainer.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+        });
+    });
+    
+    textareaContainer.addEventListener('drop', async (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length > 0) {
+            const file = files[0];
+            
+            if (file.size > 5 * 1024 * 1024) {
+                window.showToast('File size must be less than 5MB', 'error');
+                return;
+            }
+            
+            const fileType = file.name.split('.').pop().toLowerCase();
+            
+            if (fileType === 'txt') {
+                try {
+                    const text = await file.text();
+                    textarea.value = text;
+                    updateStats();
+                    window.showToast('File loaded successfully!', 'success');
+                } catch (err) {
+                    window.showToast('Failed to read file', 'error');
+                }
+            } else if (fileType === 'docx' || fileType === 'pdf') {
+                window.showToast('DOCX and PDF support coming soon! Please use TXT files for now.', 'info');
+            } else {
+                window.showToast('Unsupported file format. Please use TXT files.', 'error');
+            }
+        }
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + K to clear text
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            textarea.value = '';
+            updateStats();
+            textarea.focus();
+        }
+        
+        // Ctrl/Cmd + S to download
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            if (!downloadBtn.disabled) {
+                downloadBtn.click();
+            }
+        }
+    });
+    
+    // Auto-save to localStorage (optional feature)
+    let saveTimeout;
+    textarea.addEventListener('input', () => {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+            try {
+                localStorage.setItem('wordcounter3_draft', textarea.value);
+            } catch (err) {
+                // Silently fail if localStorage is not available
+            }
+        }, 1000);
+    });
+    
+    // Load draft on page load
+    try {
+        const draft = localStorage.getItem('wordcounter3_draft');
+        if (draft && !textarea.value) {
+            textarea.value = draft;
+            updateStats();
+        }
+    } catch (err) {
+        // Silently fail if localStorage is not available
+    }
+    
+    // Initial update
+    updateStats();
+    
+    // Focus textarea on page load
+    textarea.focus();
+})();
+</script>
 {% endblock %}

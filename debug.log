@@ -47,3 +47,171 @@ Watching for file changes with StatReloader
 "GET /robots.txt/ HTTP/1.1" 200 117
 "GET /robots.txt/ HTTP/1.1" 200 117
 "GET /robots.txt/ HTTP/1.1" 200 117
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 6920
+"GET /static/css/main.css HTTP/1.1" 200 4090
+"GET /static/css/homepage.css HTTP/1.1" 200 13948
+"GET /static/js/homepage.js HTTP/1.1" 200 27574
+"GET /static/js/main.js HTTP/1.1" 200 12409
+"GET /case-converter/ HTTP/1.1" 200 6520
+"GET /character-counter/ HTTP/1.1" 200 6400
+"GET /character-counter/ HTTP/1.1" 200 6373
+"GET /character-counter/ HTTP/1.1" 200 6318
+"GET /character-counter/ HTTP/1.1" 200 6357
+"GET /case-converter/ HTTP/1.1" 200 6356
+"GET /case-converter/ HTTP/1.1" 200 6492
+"GET /character-counter/ HTTP/1.1" 200 7992
+"GET /character-counter/ HTTP/1.1" 200 7978
+"GET / HTTP/1.1" 200 6948
+"GET /case-converter/ HTTP/1.1" 200 8723
+"GET /static/css/main.css HTTP/1.1" 200 4090
+"GET /static/js/main.js HTTP/1.1" 200 12409
+"GET /static/favicon.ico HTTP/1.1" 404 1792
+"GET /static/favicon-32x32.png HTTP/1.1" 404 1810
+"GET /static/favicon-16x16.png HTTP/1.1" 404 1810
+"GET /static/android-chrome-192x192.png HTTP/1.1" 404 1837
+"GET /static/android-chrome-512x512.png HTTP/1.1" 404 1837
+Internal Server Error: /character-counter/
+Traceback (most recent call last):
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loader_tags.py", line 226, in do_block
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_scripts' appears more than once
+"GET /character-counter/ HTTP/1.1" 500 20130
+Internal Server Error: /character-counter/
+Traceback (most recent call last):
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 505, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 507, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\manik\AppData\Roaming\Python\Python312\site-packages\django\template\base.py", line 568, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 862: 'endblock'. Did you forget to register or load this tag?
+"GET /character-counter/ HTTP/1.1" 500 19806
+"GET /character-counter/ HTTP/1.1" 200 11067
+"GET /case-converter/ HTTP/1.1" 200 10444
+"GET /character-counter/ HTTP/1.1" 200 14750
+"GET / HTTP/1.1" 200 10891
+"GET /static/css/homepage.css HTTP/1.1" 200 13948
+"GET /static/js/homepage.js HTTP/1.1" 200 27574
+"GET / HTTP/1.1" 200 10902
+"GET / HTTP/1.1" 200 10932
+"GET / HTTP/1.1" 200 12065
+"GET / HTTP/1.1" 200 9437
+"GET /character-counter/ HTTP/1.1" 200 13232
+"GET /reading-time-calculator/ HTTP/1.1" 200 9618
+"GET /space-cleaner/ HTTP/1.1" 200 9606
+"GET /case-converter/ HTTP/1.1" 200 10881
+"GET / HTTP/1.1" 200 12297
